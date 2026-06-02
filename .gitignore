@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+logs/
+*.log
+*.tmp
+
+# Generated reports / local manifests
+FILE_MANIFEST.json
+
+# Large raw datasets (too large for regular GitHub repo)
+data/raw/philosophy_data.csv
+data/raw/sentences.csv
+
+# Trained models and generated indexes
+models/*.pt
+models/*.pkl
+models/corpus_chunks.csv
+
+# Optional local notebook exports
+notebooks/*.html
+notebooks/*.pdf
+

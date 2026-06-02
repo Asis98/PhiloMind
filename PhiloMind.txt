@@ -1,0 +1,40 @@
+PhiloMind/                                ← cartella root su Google Drive
+│
+├── disciplines/                          ← cuore del sistema dinamico
+│   ├── config.json                       ← registro di tutte le discipline attive
+│   ├── filosofia/
+│   │   ├── corpus_chunks.csv             ← brani indicizzati
+│   │   └── index.faiss                   ← indice di ricerca
+│   ├── storia/
+│   │   ├── corpus_chunks.csv
+│   │   └── index.faiss
+│   └── [nuova_disciplina]/               ← si crea automaticamente via UI
+│
+├── data/
+│   ├── raw/
+│   │   └── history_of_philosophy.csv     ← dataset Kaggle
+│   └── labels/
+│       └── questions_labeled.csv         ← dataset classificatore (fatto a mano)
+│
+├── agents/
+│   ├── base_agent.py                     ← classe ExpertAgent generica
+│   ├── agent1_classifier.py              ← BiLSTM + DistilBERT
+│   ├── agent2_retriever.py               ← ricerca brani nel corpus
+│   ├── agent3_responder.py               ← genera risposta con stile
+│   ├── agent4_assessor.py                ← genera quiz
+│   └── registry.py                       ← AgentRegistry dinamico
+│
+├── models/
+│   ├── classifier_bilstm.h5              ← modello salvato settimana 2
+│   └── classifier_bert/                  ← modello salvato settimana 3
+│
+├── notebooks/
+│   ├── Week1_DataPrep.ipynb              ← questa settimana
+│   ├── Week2_BiLSTM.ipynb
+│   ├── Week3_BERT.ipynb
+│   ├── Week4_Retriever.ipynb
+│   ├── Week5_Responder_Assessor.ipynb
+│   └── Week6_App_Gradio.ipynb
+│
+└── app/
+    └── gradio_app.py                     ← interfaccia finale completa

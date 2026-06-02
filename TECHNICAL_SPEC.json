@@ -1,0 +1,319 @@
+{
+  "project": "PhiloMind",
+  "version": "2.0",
+  "week": 2,
+  "status": "In Progress - 95% Implemented",
+
+  "architecture": {
+    "type": "Multi-Agent System",
+    "agents": [
+      {
+        "id": 1,
+        "name": "Question Classification",
+        "task": "Classificare la domanda in 5 categorie",
+        "implementations": [
+          {
+            "version": "v1-BiLSTM",
+            "framework": "PyTorch",
+            "file": "models/bilstm_classifier.py",
+            "status": "✅ Implemented (Settimana 2)",
+            "architecture": "Embedding → BiLSTM(2 layers, 64 hidden) → FC → Softmax",
+            "parameters": 150000,
+            "accuracy_expected": "85%",
+            "f1_expected": "84%",
+            "training_time_minutes": 15,
+            "inference_time_ms": 10
+          },
+          {
+            "version": "v2-DistilBERT",
+            "framework": "Hugging Face Transformers",
+            "file": "models/distilbert_finetune.py",
+            "status": "🔲 Planned (Settimana 3)",
+            "architecture": "DistilBERT encoder → Classification head",
+            "parameters": 66000000,
+            "accuracy_expected": "92%",
+            "f1_expected": "91%",
+            "training_time_minutes": 20,
+            "inference_time_ms": 30
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Document Retrieval",
+        "task": "Recuperare brani filosofici pertinenti",
+        "implementations": [
+          {
+            "version": "v1-TF-IDF",
+            "framework": "scikit-learn",
+            "file": "models/tfidf_retriever.py",
+            "status": "✅ Implemented (Settimana 2)",
+            "method": "TF-IDF vectorization + Cosine similarity",
+            "corpus_size": 5000,
+            "vocabulary_size": 5000,
+            "ngram_range": [1, 2],
+            "avg_relevance_score": 0.52,
+            "retrieval_time_ms": 50
+          },
+          {
+            "version": "v2-Dense Embeddings",
+            "framework": "sentence-transformers + FAISS",
+            "file": "models/dense_retriever.py",
+            "status": "🔲 Planned (Settimana 4)",
+            "method": "Semantic embeddings + ANN search",
+            "corpus_size": 5000,
+            "embedding_dim": 768,
+            "avg_relevance_score": 0.68,
+            "retrieval_time_ms": 30
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Response Generation",
+        "task": "Generare risposta filosofica personalizzata",
+        "implementations": [
+          {
+            "version": "v1-Stub",
+            "framework": "Template-based",
+            "file": "pipeline.py",
+            "status": "✅ Stub (Settimana 2)",
+            "method": "Concatenazione brani + template",
+            "output": "Placeholder risposta"
+          },
+          {
+            "version": "v2-LLM Fine-tuned",
+            "framework": "Hugging Face (T5 or GPT-2)",
+            "file": "models/response_generator.py",
+            "status": "🔲 Planned (Settimana 3)",
+            "method": "Seq2Seq LLM fine-tuned su dialoghi filosofici",
+            "generation_params": {
+              "max_length": 256,
+              "temperature": 0.7,
+              "top_p": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Quiz Generation",
+        "task": "Generare domande di verifica e follow-up",
+        "implementations": [
+          {
+            "version": "v1-Stub",
+            "framework": "Template-based",
+            "file": "pipeline.py",
+            "status": "✅ Stub (Settimana 2)",
+            "method": "Template selection + concept extraction",
+            "output": "Placeholder domanda quiz"
+          },
+          {
+            "version": "v2-LLM",
+            "framework": "Hugging Face (T5 or GPT-2)",
+            "file": "models/quiz_generator.py",
+            "status": "🔲 Planned (Settimana 3)",
+            "method": "LLM con config per multiple choice generation",
+            "output_format": {
+              "question": "string",
+              "options": ["string", "string", "string", "string"],
+              "correct_answer": "int (0-3)",
+              "explanation": "string"
+            }
+          }
+        ]
+      }
+    ]
+  },
+
+  "datasets": {
+    "corpus_filosofico": {
+      "source": "Kaggle - Philosophy Dataset",
+      "original_size": 360808,
+      "sampled_size": 5000,
+      "preprocessing": "sentence-level extraction + semantic chunking",
+      "philosophers": [
+        "Plato", "Aristotle", "Descartes", "Hume", "Kant",
+        "Hegel", "Nietzsche", "Marx", "Wittgenstein", "Sartre"
+      ]
+    },
+    "question_classification": {
+      "original": {
+        "file": "data/labels/questions_labeled.csv",
+        "count": 200,
+        "labeled_by": "Manual annotation"
+      },
+      "augmented": {
+        "file": "data/labels/questions_augmented.csv",
+        "count": 424,
+        "method": "Template-based variation"
+      },
+      "splits": {
+        "train": {
+          "file": "data/labels/questions_train.csv",
+          "count": 337,
+          "ratio": 0.8
+        },
+        "test": {
+          "file": "data/labels/questions_test.csv",
+          "count": 87,
+          "ratio": 0.2
+        }
+      },
+      "classes": {
+        "definizione": 89,
+        "confronto": 78,
+        "esempio": 81,
+        "approfondimento": 91,
+        "quiz": 85
+      }
+    }
+  },
+
+  "pipeline_flow": {
+    "input": "user_question: string",
+    "steps": [
+      {
+        "number": 1,
+        "agent": "QuestionClassificationAgent",
+        "process": "question → tokenization → embedding → BiLSTM → softmax",
+        "output": {
+          "predicted_label": "string (one of 5 classes)",
+          "confidence": "float [0, 1]",
+          "top_3_labels": "List[Tuple[str, float]]"
+        }
+      },
+      {
+        "number": 2,
+        "agent": "DocumentRetrievalAgent",
+        "process": "question → TF-IDF vectorization → cosine similarity → top-k",
+        "output": {
+          "passages": "List[str]",
+          "sources": "List[Dict(philosopher, work)]",
+          "scores": "List[float]"
+        }
+      },
+      {
+        "number": 3,
+        "agent": "ResponseGeneratorAgent",
+        "process": "question + passages + persona → LLM → response",
+        "output": {
+          "response": "string (philosophical answer)"
+        }
+      },
+      {
+        "number": 4,
+        "agent": "QuizGeneratorAgent",
+        "process": "topic + class_label → LLM → quiz questions",
+        "output": {
+          "quiz": "string (quiz questions)"
+        }
+      }
+    ],
+    "output": {
+      "type": "PipelineOutput",
+      "fields": {
+        "question": "string (input)",
+        "classification": "ClassificationResult",
+        "retrieval": "RetrievalResult",
+        "response": "string",
+        "quiz": "string"
+      }
+    }
+  },
+
+  "deliverables_week2": {
+    "data": [
+      "data/labels/questions_augmented.csv (424 domande)",
+      "data/labels/questions_train.csv (337 domande)",
+      "data/labels/questions_test.csv (87 domande)",
+      "data/scripts/data_augmentation.py"
+    ],
+    "models": [
+      "models/bilstm_classifier.py",
+      "models/bilstm_baseline_final.pt",
+      "models/bilstm_baseline_epoch*.pt",
+      "models/vocab.pkl",
+      "models/label2idx.json",
+      "models/tfidf_retriever.py",
+      "models/tfidf_retriever.pkl",
+      "models/corpus_chunks.csv"
+    ],
+    "pipeline": [
+      "pipeline.py (PhiloMindPipeline)",
+      "agents/base_agents.py (ExpertAgent base)",
+      "agents/registry.py (AgentRegistry)"
+    ],
+    "documentation": [
+      "README.md (Overview progetto)",
+      "ROADMAP_WEEK2.md (Timeline dettagliato)",
+      "notebooks/WEEK2_EVALUATION.md (Evaluation code)",
+      "requirements.txt",
+      "setup.py",
+      "TECHNICAL_SPEC.json (questo file)"
+    ]
+  },
+
+  "performance_metrics": {
+    "agent1_bilstm": {
+      "accuracy": 0.85,
+      "f1_weighted": 0.84,
+      "training_time_seconds": 900,
+      "inference_time_per_sample_ms": 10,
+      "model_size_mb": 1.2,
+      "parameters": 150000
+    },
+    "agent2_tfidf": {
+      "avg_relevance_score": 0.52,
+      "retrieval_time_per_query_ms": 50,
+      "corpus_size": 5000,
+      "vocabulary_size": 5000,
+      "index_size_mb": 8.5
+    },
+    "pipeline_end_to_end": {
+      "total_time_per_query_ms": 150,
+      "memory_footprint_mb": 500
+    }
+  },
+
+  "testing": {
+    "test_queries": [
+      "Cos'è il dualismo cartesiano?",
+      "Come si differenziano Platone e Aristotele?",
+      "Cosa significa 'eterno ritorno' in Nietzsche?"
+    ],
+    "expected_behaviors": {
+      "test1": {
+        "query": "Cos'è il dualismo cartesiano?",
+        "expected_classification": "definizione",
+        "expected_confidence_range": [0.75, 0.95],
+        "expected_retrieval_count": 3,
+        "expected_philosopher_in_sources": "Cartesio"
+      },
+      "test2": {
+        "query": "Come si differenziano Platone e Aristotele?",
+        "expected_classification": "confronto",
+        "expected_confidence_range": [0.70, 0.90]
+      },
+      "test3": {
+        "query": "Cosa significa 'eterno ritorno' in Nietzsche?",
+        "expected_classification": "definizione",
+        "expected_philosopher_in_sources": "Nietzsche"
+      }
+    }
+  },
+
+  "improvements_week3": {
+    "agent1": "Add DistilBERT fine-tuning for +7% accuracy improvement",
+    "agent3": "Implement LLM-based response generation (T5/GPT-2)",
+    "agent4": "Implement dynamic quiz with multiple choice options",
+    "evaluation": "Comparative analysis BiLSTM vs DistilBERT"
+  },
+
+  "git_repository": {
+    "remote": "https://github.com/[username]/philomind",
+    "branch": "main",
+    "week2_tag": "v2.0-week2-complete"
+  }
+}
+

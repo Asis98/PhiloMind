@@ -1,0 +1,37 @@
+# PhiloMind - Python Dependencies
+
+# Data & ML
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+pandas==2.0.3
+numpy==1.24.3
+scikit-learn==1.3.0
+
+# NLP & Text Processing
+transformers==4.30.2
+tokenizers==0.13.3
+nltk==3.8.1
+
+# Visualization & Notebooks
+matplotlib==3.7.2
+seaborn==0.12.2
+jupyter==1.0.0
+jupyterlab==4.0.3
+ipywidgets==8.0.7
+
+# Development & Utils
+python-dotenv==1.0.0
+tqdm==4.65.0
+click==8.1.6
+pydantic==2.2.0
+
+# For future use (settimana 3+)
+# flask==2.3.2
+# fastapi==0.100.0
+# uvicorn==0.23.1
+# peft==0.4.0  # Parameter Efficient Fine-Tuning per DistilBERT
+
+# Optional: GPU support
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
