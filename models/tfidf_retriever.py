@@ -11,6 +11,9 @@ from pathlib import Path
 import pickle
 from typing import List, Tuple
 
+BASE_DIR = Path("models-utils")
+BASE_DIR.mkdir(parents=True, exist_ok=True)
+
 class TFIDFRetriever:
     """Retriever basato su TF-IDF per documenti filosofici."""
 
@@ -36,7 +39,7 @@ class TFIDFRetriever:
         """Allena il vectorizer su una collezione di testi."""
         self.tfidf_matrix = self.vectorizer.fit_transform(texts)
         self.is_fitted = True
-        print(f"✅ TF-IDF fitted su {len(texts)} documenti")
+        print(f" TF-IDF fitted su {len(texts)} documenti")
         print(f"   Vocabulary size: {len(self.vectorizer.get_feature_names_out())}")
 
     def retrieve(self, query: str, top_k: int = 3) -> List[Tuple[str, float]]:
@@ -79,7 +82,7 @@ class TFIDFRetriever:
                 'tfidf_matrix': self.tfidf_matrix,
                 'corpus_df': self.corpus_df
             }, f)
-        print(f"✅ Retriever salvato a {path}")
+        print(f" Retriever salvato a {path}")
 
     def load(self, path: str):
         """Carica il retriever."""
@@ -89,7 +92,7 @@ class TFIDFRetriever:
             self.tfidf_matrix = data['tfidf_matrix']
             self.corpus_df = data['corpus_df']
             self.is_fitted = True
-        print(f"✅ Retriever caricato da {path}")
+        print(f" Retriever caricato da {path}")
 
 
 class CorpusPreparer:
@@ -134,11 +137,11 @@ class CorpusPreparer:
         df['text'] = df['text'].astype(str).str.strip()
         df = df[df['text'].str.len() > 10]  # Solo testi significativi
 
-        print(f"  📚 Corpus caricato: {len(df)} documenti")
+        print(f"   Corpus caricato: {len(df)} documenti")
         return df.reset_index(drop=True)
 
     @staticmethod
-    def create_semantic_chunks(df: pd.DataFrame, chunk_size: int = 100) -> pd.DataFrame:
+    def create_semantic_chunks(df: pd.DataFrame, chunk_size: int = 200) -> pd.DataFrame:
         """
         Divide i testi in chunks semantici (per phrase/sentence).
         """
@@ -180,11 +183,11 @@ class CorpusPreparer:
                     'original_idx': idx
                 })
 
-        print(f"📦 {len(chunks)} chunks semantici creati")
+        print(f" {len(chunks)} chunks semantici creati")
         return pd.DataFrame(chunks)
 
 
-def build_corpus_index(raw_corpus_path: str, output_dir: str = 'models', sample_size: int = 5000):
+def build_corpus_index(raw_corpus_path: str, output_dir: Path = BASE_DIR, sample_size: int = 5000):
     """
     Costruisce l'indice TF-IDF completo del corpus.
 
@@ -198,7 +201,7 @@ def build_corpus_index(raw_corpus_path: str, output_dir: str = 'models', sample_
     print("="*60)
 
     # Carica corpus
-    print(f"\n📖 Caricamento corpus da {raw_corpus_path}...")
+    print(f"\n Caricamento corpus da {raw_corpus_path}...")
     raw_corpus = CorpusPreparer.parse_kaggle_corpus(raw_corpus_path)
 
     # Se il corpus è troppo grande, campiona
@@ -207,26 +210,38 @@ def build_corpus_index(raw_corpus_path: str, output_dir: str = 'models', sample_
         raw_corpus = raw_corpus.sample(n=sample_size, random_state=42)
 
     # Chunking
-    print("\n✂️  Chunking semantico...")
+    print("\n✂  Chunking semantico...")
     corpus_chunks = CorpusPreparer.create_semantic_chunks(raw_corpus, chunk_size=100)
 
+    #FILTER NOISE CHUNKS
+    corpus_chunks = corpus_chunks[corpus_chunks["text"].str.len() > 80]
+    corpus_chunks = corpus_chunks[
+        ~corpus_chunks["text"].str.contains(
+            "defense|military|weapon",
+            case=False,
+            na=False
+        )
+    ]
+
     # Costruisci retriever
-    print("\n🔧 Costruzione TF-IDF retriever...")
+    print("\n Costruzione TF-IDF retriever...")
     retriever = TFIDFRetriever(corpus_df=corpus_chunks)
     retriever.fit(corpus_chunks['text'].values)
 
     # Salva
-    Path(output_dir).mkdir(exist_ok=True)
-    retriever.save(f'{output_dir}/tfidf_retriever.pkl')
-    corpus_chunks.to_csv(f'{output_dir}/corpus_chunks.csv', index=False)
+    output_dir = BASE_DIR
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    retriever.save(output_dir / "tfidf_retriever.pkl")
+    corpus_chunks.to_csv(output_dir / "corpus_chunks.csv", index=False)
 
     return retriever, corpus_chunks
 
 
 if __name__ == '__main__':
     # Paths
-    raw_corpus_path = 'data/raw/philosophy_data.csv'
-    output_dir = 'models'
+    raw_corpus_path = '../data/raw/philosophy_data.csv'
+    output_dir = str(BASE_DIR)
 
     # Verifica se il corpus esiste
     if not Path(raw_corpus_path).exists():
@@ -236,29 +251,34 @@ if __name__ == '__main__':
         # Crea corpus di ejemplo
         example_corpus = pd.DataFrame({
             'text': [
-                'In Platone, la Repubblica rappresenta il dialogo più noto sulla giustizia. Socrate discute con i suoi interlocutori per definire la virtù.',
-                'Aristotele critica la teoria delle forme platonica e sviluppa il concetto di sostanza prima.',
-                'Cartesio inizia il suo metodo dubbio dalla famosa proposizione Cogito ergo sum.',
-                'Nietzsche introduce il concetto di Übermensch come superamento della morale tradizionale.',
-                'Marx analizza il modo di produzione capitalista in Il Capitale.',
-                'Kant sostiene che il tempo e lo spazio sono forme a priori della sensibilità.',
-                'In Hegel la dialettica serve a comprendere il movimento dello spirito assoluto nella storia.',
-                'Rousseau teorizza il contratto sociale basato sulla volontà generale del popolo.',
-                'Spinoza concepisce Dio come natura equivalente al determinismo universale.',
-                'Schopenhauer vede la volontà come principio fondamentale della realtà.',
+                'In Plato, the Republic represents the most famous dialogue on justice. Socrates discusses with his interlocutors to define virtue.',
+                'Aristotle criticizes Plato’s theory of Forms and develops the concept of primary substance.',
+                'Descartes begins his method of doubt with the famous proposition “Cogito ergo sum.”',
+                'Nietzsche introduces the concept of the Übermensch as a overcoming of traditional morality.',
+                'Marx analyzes the capitalist mode of production in *Capital*.',
+                'Kant argues that space and time are a priori forms of sensibility.',
+                'In Hegel, dialectics is used to understand the movement of the absolute spirit in history.',
+                'Rousseau theorizes the social contract based on the general will of the people.',
+                'Spinoza conceives God as nature, equivalent to universal determinism.',
+                'Schopenhauer sees the will as the fundamental principle of reality.',
             ],
-            'philosopher': ['Platone', 'Aristotele', 'Cartesio', 'Nietzsche', 'Marx',
-                           'Kant', 'Hegel', 'Rousseau', 'Spinoza', 'Schopenhauer'],
-            'work': ['Repubblica', 'Metafisica', 'Meditazioni', 'Così parlò Zarathustra', 'Il Capitale',
-                    'Critica della ragion pura', 'Fenomenologia dello spirito', 'Il contratto sociale', 'Etica', 'Il mondo come volontà e rappresentazione']
+            'philosopher': [
+                'Plato', 'Aristotle', 'Descartes', 'Nietzsche', 'Marx',
+                'Kant', 'Hegel', 'Rousseau', 'Spinoza', 'Schopenhauer'
+            ],
+            'work': [
+                'Republic', 'Metaphysics', 'Meditations', 'Thus Spoke Zarathustra', 'Capital',
+                'Critique of Pure Reason', 'Phenomenology of Spirit', 'The Social Contract', 'Ethics',
+                'The World as Will and Representation'
+            ]
         })
 
-        Path('data/raw').mkdir(parents=True, exist_ok=True)
+        Path('../data/raw').mkdir(parents=True, exist_ok=True)
         example_corpus.to_csv(raw_corpus_path, index=False)
-        print(f"✅ Corpus di esempio creato a {raw_corpus_path}")
+        print(f" Corpus di esempio creato a {raw_corpus_path}")
 
     # Build retriever
-    retriever, corpus_chunks = build_corpus_index(raw_corpus_path, output_dir)
+    retriever, corpus_chunks = build_corpus_index(raw_corpus_path, BASE_DIR)
 
     print("\n" + "="*60)
     print("Test Retriever")
@@ -266,20 +286,20 @@ if __name__ == '__main__':
 
     # Test queries
     test_queries = [
-        "Cos'è la teoria delle forme in Platone?",
-        "Come si differenziano Platone e Aristotele?",
-        "Chi è Nietzsche e la volontà di potenza?"
+        "What is Plato’s theory of Forms?",
+        "How do Plato and Aristotle differ?",
+        "Who is Nietzsche and what is the will to power?"
     ]
 
     for query in test_queries:
-        print(f"\n📌 Query: {query}")
+        print(f"\n Query: {query}")
         results = retriever.retrieve(query, top_k=2)
 
         for i, (text, score) in enumerate(results, 1):
             print(f"   [{i}] (score: {score:.4f})")
             print(f"       {text[:100]}...")
 
-    print("\n✅ Corpus index pronto!")
+    print("\n Corpus index pronto!")
 
 
 

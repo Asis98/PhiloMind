@@ -120,7 +120,7 @@ python data/scripts/data_augmentation.py
 ### 3. Train Agent 1 (BiLSTM Baseline)
 
 ```bash
-python models/bilstm_classifier.py
+python models-utils/bilstm_classifier.py
 ```
 
 **Output:**
@@ -136,7 +136,7 @@ python models/bilstm_classifier.py
 ### 4. Build Agent 2 (TF-IDF Retriever)
 
 ```bash
-python models/tfidf_retriever.py
+python models-utils/tfidf_retriever.py
 ```
 
 **Output:**

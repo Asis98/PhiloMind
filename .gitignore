@@ -34,7 +34,7 @@ FILE_MANIFEST.json
 data/raw/philosophy_data.csv
 data/raw/sentences.csv
 
-# Trained models and generated indexes
+# Trained models-utils and generated indexes
 models/*.pt
 models/*.pkl
 models/corpus_chunks.csv

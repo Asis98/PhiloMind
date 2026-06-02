@@ -399,12 +399,12 @@ python data/scripts/data_augmentation.py
 # Output: data/labels/questions_train.csv, questions_test.csv
 
 # 3. Train BiLSTM
-python models/bilstm_classifier.py
-# Output: models/bilstm_baseline_final.pt + vocab.pkl
+python models-utils/bilstm_classifier.py
+# Output: models-utils/bilstm_baseline_final.pt + vocab.pkl
 
 # 4. Build Retriever
-python models/tfidf_retriever.py
-# Output: models/tfidf_retriever.pkl + corpus_chunks.csv
+python models-utils/tfidf_retriever.py
+# Output: models-utils/tfidf_retriever.pkl + corpus_chunks.csv
 
 # 5. Test Pipeline
 python pipeline.py

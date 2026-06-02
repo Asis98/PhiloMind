@@ -64,7 +64,7 @@ def setup_environment():
         'data/raw',
         'data/labels',
         'data/scripts',
-        'models',
+        'models-utils',
         'notebooks',
         'agents',
         'app',
@@ -117,11 +117,11 @@ Prossimi step:
     python data/scripts/data_augmentation.py
 
 2️⃣  Train BiLSTM Baseline:
-    python models/bilstm_classifier.py
+    python models-utils/bilstm_classifier.py
     (Questo allenerà Agent 1)
 
 3️⃣  Build TF-IDF Retriever:
-    python models/tfidf_retriever.py
+    python models-utils/tfidf_retriever.py
     (Questo allenerà Agent 2)
 
 4️⃣  Test Pipeline:

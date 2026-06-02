@@ -60,16 +60,16 @@ import json
 from pathlib import Path
 
 # Carica i risultati del training
-with open('models/label2idx.json', 'r') as f:
+with open('models-utils/label2idx.json', 'r') as f:
     label2idx = json.load(f)
 
 idx2label = {v: k for k, v in label2idx.items()}
 
 # Metriche dal file di training (aggiunto dopo training completo)
 # Il modello salva automaticamente:
-# - models/bilstm_baseline_final.pt
-# - models/vocab.pkl
-# - models/label2idx.json
+# - models-utils/bilstm_baseline_final.pt
+# - models-utils/vocab.pkl
+# - models-utils/label2idx.json
 # - Report sui metriche
 
 print("✅ BiLSTM Baseline - Metriche attese:")
@@ -89,7 +89,7 @@ from models.tfidf_retriever import TFIDFRetriever
 
 # Carica retriever
 retriever = TFIDFRetriever()
-retriever.load('models/tfidf_retriever.pkl')
+retriever.load('models-utils/tfidf_retriever.pkl')
 
 # Test retrieval
 test_queries = [

@@ -322,7 +322,7 @@ Se hai problemi:
 
 2. **Modello non trovato**: 
    ```bash
-   python models/bilstm_classifier.py  # Rivallenà
+   python models-utils/bilstm_classifier.py  # Rivallenà
    ```
 
 3. **Pipeline testa non funziona**:

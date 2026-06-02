@@ -245,10 +245,10 @@ class PhiloMindPipeline:
     """Pipeline integrata di PhiloMind."""
 
     def __init__(self,
-                 classifier_model_path: str = 'models/bilstm_baseline_final.pt',
-                 vocab_path: str = 'models/vocab.pkl',
-                 label2idx_path: str = 'models/label2idx.json',
-                 retriever_path: str = 'models/tfidf_retriever.pkl',
+                 classifier_model_path: str = 'models-utils/bilstm_baseline_final.pt',
+                 vocab_path: str = 'models-utils/vocab.pkl',
+                 label2idx_path: str = 'models-utils/label2idx.json',
+                 retriever_path: str = 'models-utils/tfidf_retriever.pkl',
                  config_path: str = 'disciplines/config.json',
                  device: str = 'cpu'):
         """

@@ -16,6 +16,11 @@ import pickle
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
+from pathlib import Path
+
+BASE_DIR = Path("models-utils")
+BASE_DIR.mkdir(parents=True, exist_ok=True)
+
 class QuestionDataset(Dataset):
     """Dataset per domande filosofiche."""
 
@@ -224,7 +229,7 @@ class QuestionClassifier:
                 self.best_val_loss = val_metrics['loss']
                 patience_counter = 0
                 print(f"  [OK] Miglioramento! Salvo il modello...")
-                self.save_model(f"models/bilstm_baseline_epoch{epoch+1}.pt")
+                self.save_model(BASE_DIR / f"bilstm_baseline_epoch{epoch + 1}.pt")
             else:
                 patience_counter += 1
                 if patience_counter >= patience:
@@ -286,8 +291,8 @@ def build_vocab(train_df, min_freq=2):
 
 if __name__ == '__main__':
     # Paths
-    train_path = 'data/labels/questions_train.csv'
-    test_path = 'data/labels/questions_test.csv'
+    train_path = '../data/labels/questions_train.csv'
+    test_path = '../data/labels/questions_test.csv'
 
     # carica dati
     print("[INFO] Caricamento dati...")
@@ -365,15 +370,16 @@ if __name__ == '__main__':
     print(classification_report(all_labels, all_preds, target_names=list(idx2label.values())))
 
     # Save everything
-    Path('models').mkdir(exist_ok=True)
-    classifier.save_model('models/bilstm_baseline_final.pt')
+    save_dir = BASE_DIR
 
-    with open('models/vocab.pkl', 'wb') as f:
+    classifier.save_model(save_dir / "bilstm_baseline_final.pt")
+
+    with open(save_dir / "vocab.pkl", "wb") as f:
         pickle.dump(vocab, f)
 
-    with open('models/label2idx.json', 'w') as f:
+    with open(save_dir / "label2idx.json", "w") as f:
         json.dump(label2idx, f, indent=2)
 
-    print("\n[OK] Modello e vocabolario salvati in models/")
+    print(f"\n[OK] Modello e vocabolario salvati in {save_dir}/")
 
 

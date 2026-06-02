@@ -177,7 +177,7 @@ jupyter notebook notebooks/WEEK2_EVALUATION.md
 ### Salvataggio (final):
 ```bash
 # Copia i risultati
-git add models/bilstm_baseline_final.pt
+git add models-utils/bilstm_baseline_final.pt
 git add data/labels/questions_*.csv
 git commit -m "Week 2: BiLSTM baseline trained (85% accuracy)"
 ```
