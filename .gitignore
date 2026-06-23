@@ -22,24 +22,31 @@ env/
 .DS_Store
 Thumbs.db
 
-# Logs and temp
-logs/
+# Logs
 *.log
 *.tmp
 
-# Generated reports / local manifests
-FILE_MANIFEST.json
-
-# Large raw datasets (too large for regular GitHub repo)
+# Large raw datasets
 data/raw/philosophy_data.csv
 data/raw/sentences.csv
 
-# Trained models-utils and generated indexes
-models/*.pt
-models/*.pkl
-models/corpus_chunks.csv
+# Trained model artifacts
+models/bilstm/final.pt
+models/bilstm/vocab.pkl
+models/bilstm/checkpoints/
+models/retrieval/tfidf.pkl
+models/retrieval/corpus.csv
+models/distilbert/
 
-# Optional local notebook exports
+# Teacher uploads
+data/materials/
+
+# Notebook exports
 notebooks/*.html
 notebooks/*.pdf
 
+# PromptOps context snapshot
+.promptops/
+
+# PromptOps session assets
+.promptops-assets/

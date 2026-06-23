@@ -26,12 +26,15 @@ tqdm==4.65.0
 click==8.1.6
 pydantic==2.2.0
 
-# For future use (settimana 3+)
-# flask==2.3.2
-# fastapi==0.100.0
-# uvicorn==0.23.1
-# peft==0.4.0  # Parameter Efficient Fine-Tuning per DistilBERT
+# API
+fastapi==0.100.0
+uvicorn==0.23.1
+
+# Frontend Docente
+gradio>=6.0.0
+
+# Fine-tuning
+peft==0.4.0
 
 # Optional: GPU support
 # pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-
