@@ -17,8 +17,8 @@ from typing import Tuple, List
 from .base import BaseClassifier
 
 LABEL_MAP = {
-    'definizione': 0, 'confronto': 1, 'esempio': 2,
-    'approfondimento': 3, 'quiz': 4
+    'definition': 0, 'comparison': 1, 'example': 2,
+    'indepth': 3, 'quiz': 4
 }
 IDX_TO_LABEL = {v: k for k, v in LABEL_MAP.items()}
 NUM_LABELS = 5

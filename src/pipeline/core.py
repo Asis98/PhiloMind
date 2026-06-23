@@ -1,6 +1,7 @@
-"""Pipeline core - orchestrates all agents."""
+"""Pipeline core - orchestrates all agents with teacher material support."""
 
 from pathlib import Path
+from typing import Optional
 
 from src.classification.base import BaseClassifier
 from src.classification.bilstm import BiLSTMClassifier
@@ -18,14 +19,16 @@ except ImportError:
 
 
 class PhiloMindPipeline:
-    """Integrated pipeline connecting all agents."""
+    """Integrated pipeline connecting all agents with teacher material fallback."""
 
     def __init__(self, classifier: BaseClassifier = None,
                  retriever_path: str = None,
                  config_path: str = None,
-                 use_distilbert: bool = False):
+                 use_distilbert: bool = False,
+                 teacher_retriever_path: Optional[str] = None):
         self.classifier = classifier or self._load_default_classifier(use_distilbert)
-        self.retriever = self._load_retriever(retriever_path)
+        self.general_retriever = self._load_retriever(retriever_path)
+        self.teacher_retriever = self._load_retriever(teacher_retriever_path) if teacher_retriever_path else None
         self.registry = AgentRegistry(config_path or self._resolve('config/disciplines.json'))
         self.response_agent = ResponseGenerator(self.registry)
         self.quiz_agent = QuizGenerator()
@@ -50,10 +53,11 @@ class PhiloMindPipeline:
         return clf
 
     def _load_retriever(self, retriever_path):
-        path = retriever_path or self._resolve('models/retrieval/tfidf.pkl')
+        if not retriever_path:
+            return None
         retriever = TFIDFRetriever()
-        if Path(path).exists():
-            retriever.load(path)
+        if Path(retriever_path).exists():
+            retriever.load(retriever_path)
         return retriever
 
     def process(self, question: str, top_k: int = 3) -> PipelineOutput:
@@ -61,15 +65,48 @@ class PhiloMindPipeline:
         classification = ClassificationResult(question, pred_label, confidence, top_3)
 
         topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concept'
-        raw_results = self.retriever.retrieve(question, top_k=top_k)
+
+        results = self.general_retriever.retrieve(question, top_k=top_k)
         passages = []
-        for idx, text, score in raw_results:
-            source = self.retriever.get_source(idx)
-            passages.append(Passage(text=text, source=source, score=score))
+        for idx, text, score in results:
+            source = self.general_retriever.get_source(idx)
+            passages.append(Passage(text=text, source=source, score=score, source_type='general'))
+
         retrieval = RetrievalResult(passages=passages)
 
+        passages_with_sources = [{'text': p.text, 'source': p.source, 'source_type': p.source_type}
+                                  for p in passages]
+
         response = self.response_agent.generate(
-            question, pred_label, [p.text for p in passages],
+            question, pred_label, passages_with_sources,
+            philosopher=self.registry.list_disciplines()[0]
+        )
+        quiz = self.quiz_agent.generate(question, topic, pred_label)
+
+        return PipelineOutput(question, classification, retrieval, response, quiz)
+
+    def process_with_teacher_materials(self, question: str, top_k: int = 3) -> PipelineOutput:
+        pred_label, confidence, top_3 = self.classifier.predict(question)
+        classification = ClassificationResult(question, pred_label, confidence, top_3)
+
+        topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concept'
+
+        combined = self.general_retriever.retrieve_with_boost(
+            question, top_k=top_k, teacher_retriever=self.teacher_retriever, boost_factor=2.0
+        )
+        passages = []
+        for idx, text, score, stype in combined:
+            retriever = self.teacher_retriever if stype == 'teacher' else self.general_retriever
+            source = retriever.get_source(idx)
+            passages.append(Passage(text=text, source=source, score=score, source_type=stype))
+
+        retrieval = RetrievalResult(passages=passages)
+
+        passages_with_sources = [{'text': p.text, 'source': p.source, 'source_type': p.source_type}
+                                  for p in passages]
+
+        response = self.response_agent.generate(
+            question, pred_label, passages_with_sources,
             philosopher=self.registry.list_disciplines()[0]
         )
         quiz = self.quiz_agent.generate(question, topic, pred_label)

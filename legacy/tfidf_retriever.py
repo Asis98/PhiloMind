@@ -1,6 +1,6 @@
 """
-Agent 2: Retriever TF-IDF per il recupero di brani filosofici.
-Recupera i brani più rilevanti dal corpus il base alla query (domanda).
+Agent 2: TF-IDF Retriever for philosophical passage retrieval.
+Retrieves the most relevant passages from the corpus based on the query (question).
 """
 
 import pandas as pd
@@ -15,7 +15,7 @@ BASE_DIR = Path("models-utils")
 BASE_DIR.mkdir(parents=True, exist_ok=True)
 
 class TFIDFRetriever:
-    """Retriever basato su TF-IDF per documenti filosofici."""
+    """TF-IDF based retriever for philosophical documents."""
 
     def __init__(self, corpus_df=None, min_df=1, max_df=0.95):
         """
@@ -29,14 +29,14 @@ class TFIDFRetriever:
             lowercase=True,
             min_df=min_df,
             max_df=max_df,
-            ngram_range=(1, 2),  # unigrams e bigrams
-            stop_words='english'  # o italiana
+            ngram_range=(1, 2),  # unigrams and bigrams
+            stop_words='english'  # or italian
         )
         self.tfidf_matrix = None
         self.is_fitted = False
 
     def fit(self, texts):
-        """Allena il vectorizer su una collezione di testi."""
+        """Train the vectorizer on a collection of texts."""
         self.tfidf_matrix = self.vectorizer.fit_transform(texts)
         self.is_fitted = True
         print(f" TF-IDF fitted su {len(texts)} documenti")
@@ -44,15 +44,15 @@ class TFIDFRetriever:
 
     def retrieve(self, query: str, top_k: int = 3) -> List[Tuple[str, float]]:
         """
-        Recupera i top_k brani più rilevanti per una query.
+        Retrieve the top_k most relevant passages for a query.
 
         Returns:
-            Lista di tuple (testo, similarità_score)
+            List of tuples (text, similarity_score)
         """
         if not self.is_fitted:
-            raise ValueError("Retriever non è stato trainato. Chiama fit() prima.")
+            raise ValueError("Retriever has not been trained. Call fit() first.")
 
-        # Vectoriza la query
+        # Vectorize the query
         query_vec = self.vectorizer.transform([query])
 
         # Calcola similarità coseno
@@ -74,7 +74,7 @@ class TFIDFRetriever:
         return [self.retrieve(q, top_k) for q in queries]
 
     def save(self, path: str):
-        """Salva il retriever."""
+        """Save the retriever."""
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with open(path, 'wb') as f:
             pickle.dump({
@@ -85,7 +85,7 @@ class TFIDFRetriever:
         print(f" Retriever salvato a {path}")
 
     def load(self, path: str):
-        """Carica il retriever."""
+        """Load the retriever."""
         with open(path, 'rb') as f:
             data = pickle.load(f)
             self.vectorizer = data['vectorizer']
@@ -96,12 +96,12 @@ class TFIDFRetriever:
 
 
 class CorpusPreparer:
-    """Prepara il corpus filosofico per il retriever."""
+    """Prepare the philosophical corpus for the retriever."""
 
     @staticmethod
     def parse_kaggle_corpus(csv_path: str) -> pd.DataFrame:
         """
-        Carica il corpus Kaggle filosofico e lo preprocessa.
+        Load the Kaggle philosophical corpus and preprocess it.
         Assume structure dalle PhilosophyData Kaggle: [author, title, sentence_str, ...]
         """
         print(f"  Caricamento {csv_path}...")
@@ -113,7 +113,7 @@ class CorpusPreparer:
         elif 'sentence' in df.columns:
             df['text'] = df['sentence']
         elif 'text' not in df.columns:
-            # Prova a usare la prima colonna testuale
+            # Try to use the first textual column
             text_cols = [c for c in df.columns if df[c].dtype == 'object']
             if text_cols:
                 df['text'] = df[text_cols[0]]
@@ -130,12 +130,12 @@ class CorpusPreparer:
         elif 'work' not in df.columns:
             df['work'] = 'Unknown'
 
-        # Rimuovi null
+        # Remove nulls
         df = df.dropna(subset=['text'])
 
         # Pulizia testo
         df['text'] = df['text'].astype(str).str.strip()
-        df = df[df['text'].str.len() > 10]  # Solo testi significativi
+        df = df[df['text'].str.len() > 10]  # Only meaningful texts
 
         print(f"   Corpus caricato: {len(df)} documenti")
         return df.reset_index(drop=True)
@@ -143,7 +143,7 @@ class CorpusPreparer:
     @staticmethod
     def create_semantic_chunks(df: pd.DataFrame, chunk_size: int = 200) -> pd.DataFrame:
         """
-        Divide i testi in chunks semantici (per phrase/sentence).
+        Divide texts into semantic chunks (by phrase/sentence).
         """
         chunks = []
 
@@ -161,7 +161,7 @@ class CorpusPreparer:
                     word_count = len(sentence.split())
 
                     if current_length + word_count > chunk_size and current_chunk:
-                        # Salva chunk
+                        # Save chunk
                         chunks.append({
                             'text': '. '.join(current_chunk) + '.',
                             'philosopher': row.get('philosopher', 'Unknown'),
@@ -174,7 +174,7 @@ class CorpusPreparer:
                         current_chunk.append(sentence)
                         current_length += word_count
 
-            # Chunk rimanente
+            # Remaining chunk
             if current_chunk:
                 chunks.append({
                     'text': '. '.join(current_chunk) + '.',
@@ -183,18 +183,18 @@ class CorpusPreparer:
                     'original_idx': idx
                 })
 
-        print(f" {len(chunks)} chunks semantici creati")
+        print(f" {len(chunks)} semantic chunks created")
         return pd.DataFrame(chunks)
 
 
 def build_corpus_index(raw_corpus_path: str, output_dir: Path = BASE_DIR, sample_size: int = 5000):
     """
-    Costruisce l'indice TF-IDF completo del corpus.
+    Build the complete TF-IDF index of the corpus.
 
     Args:
-        raw_corpus_path: path al CSV del corpus
-        output_dir: directory dove salvare
-        sample_size: numero massimo di documenti da usare (per performance)
+        raw_corpus_path: path to the corpus CSV
+        output_dir: directory to save to
+        sample_size: maximum number of documents to use (for performance)
     """
     print("\n"+"="*60)
     print("Building TF-IDF Corpus Index")
@@ -204,13 +204,13 @@ def build_corpus_index(raw_corpus_path: str, output_dir: Path = BASE_DIR, sample
     print(f"\n Caricamento corpus da {raw_corpus_path}...")
     raw_corpus = CorpusPreparer.parse_kaggle_corpus(raw_corpus_path)
 
-    # Se il corpus è troppo grande, campiona
+    # If corpus is too large, sample it
     if len(raw_corpus) > sample_size:
-        print(f"  ⚠️  Corpus grande ({len(raw_corpus)} docs). Campio {sample_size} per velocità...")
+        print(f"  ⚠️  Large corpus ({len(raw_corpus)} docs). Sampling {sample_size} for speed...")
         raw_corpus = raw_corpus.sample(n=sample_size, random_state=42)
 
     # Chunking
-    print("\n✂  Chunking semantico...")
+    print("\n✂  Semantic chunking...")
     corpus_chunks = CorpusPreparer.create_semantic_chunks(raw_corpus, chunk_size=100)
 
     #FILTER NOISE CHUNKS
@@ -243,12 +243,12 @@ if __name__ == '__main__':
     raw_corpus_path = '../data/raw/philosophy_data.csv'
     output_dir = str(BASE_DIR)
 
-    # Verifica se il corpus esiste
+    # Verify if corpus exists
     if not Path(raw_corpus_path).exists():
-        print(f"⚠️  {raw_corpus_path} non trovato!")
-        print("Creando corpus di esempio...")
+        print(f"⚠️  {raw_corpus_path} not found!")
+        print("Creating example corpus...")
 
-        # Crea corpus di ejemplo
+        # Create example corpus
         example_corpus = pd.DataFrame({
             'text': [
                 'In Plato, the Republic represents the most famous dialogue on justice. Socrates discusses with his interlocutors to define virtue.',
@@ -275,7 +275,7 @@ if __name__ == '__main__':
 
         Path('../data/raw').mkdir(parents=True, exist_ok=True)
         example_corpus.to_csv(raw_corpus_path, index=False)
-        print(f" Corpus di esempio creato a {raw_corpus_path}")
+        print(f" Example corpus created at {raw_corpus_path}")
 
     # Build retriever
     retriever, corpus_chunks = build_corpus_index(raw_corpus_path, BASE_DIR)
@@ -299,7 +299,7 @@ if __name__ == '__main__':
             print(f"   [{i}] (score: {score:.4f})")
             print(f"       {text[:100]}...")
 
-    print("\n Corpus index pronto!")
+    print("\n Corpus index ready!")
 
 
 

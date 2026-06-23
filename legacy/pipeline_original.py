@@ -1,8 +1,8 @@
 """
-Pipeline integrata per PhiloMind.
-Collega:
-- Agent 1: Classificatore BiLSTM
-- Agent 2: Retriever TF-IDF
+Integrated pipeline for PhiloMind.
+Connects:
+- Agent 1: BiLSTM Classifier
+- Agent 2: TF-IDF Retriever
 - Agent 3: Response Generator (stub)
 - Agent 4: Quiz Generator (stub)
 """
@@ -15,7 +15,7 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
 
-# Import dei moduli sviluppati
+# Import developed modules
 from models.bilstm_classifier import QuestionClassifier, QuestionDataset
 from models.tfidf_retriever import TFIDFRetriever
 from agents.base_agents import ExpertAgent
@@ -23,7 +23,7 @@ from agents.registry import AgentRegistry
 
 @dataclass
 class ClassificationResult:
-    """Risultato della classificazione di una domanda."""
+    """Result of question classification."""
     question: str
     predicted_label: str
     confidence: float
@@ -32,7 +32,7 @@ class ClassificationResult:
 
 @dataclass
 class RetrievalResult:
-    """Risultato del retrieval di brani filosofici."""
+    """Result of philosophical passage retrieval."""
     passages: List[str]
     sources: List[Dict]  # philosopher, work
     scores: List[float]
@@ -40,7 +40,7 @@ class RetrievalResult:
 
 @dataclass
 class PipelineOutput:
-    """Output completo della pipeline."""
+    """Complete pipeline output."""
     question: str
     classification: ClassificationResult
     retrieval: RetrievalResult
@@ -49,14 +49,14 @@ class PipelineOutput:
 
 
 class QuestionClassificationAgent:
-    """Agent 1: Classificazione della domanda."""
+    """Agent 1: Question classification."""
 
     def __init__(self, model_path: str, vocab_path: str, label2idx_path: str, device: str = 'cpu'):
         """
         Args:
-            model_path: path al modello BiLSTM salvo
-            vocab_path: path al vocabolario
-            label2idx_path: path al mapping label->indice
+            model_path: path to saved BiLSTM model
+            vocab_path: path to vocabulary
+            label2idx_path: path to label->index mapping
         """
         self.device = torch.device(device)
 
@@ -69,7 +69,7 @@ class QuestionClassificationAgent:
 
         self.idx2label = {v: k for k, v in self.label2idx.items()}
 
-        # Ricrea il modello
+        # Recreate the model
         self.classifier = QuestionClassifier(
             vocab_size=len(self.vocab),
             embedding_dim=100,
@@ -85,10 +85,10 @@ class QuestionClassificationAgent:
             self.classifier.load_model(model_path)
             print(f"✅ Classificatore caricato da {model_path}")
         else:
-            print(f"⚠️  Modello non trovato a {model_path}")
+            print(f"⚠️  Model not found at {model_path}")
 
     def classify(self, question: str) -> ClassificationResult:
-        """Classifica una domanda."""
+        """Classify a question."""
         # Tokenizza
         tokens = question.lower().split()[:50]
         token_indices = []
@@ -130,19 +130,19 @@ class QuestionClassificationAgent:
 
 
 class DocumentRetrievalAgent:
-    """Agent 2: Retrieval di brani filosofici."""
+    """Agent 2: Philosophical passage retrieval."""
 
     def __init__(self, retriever_path: str):
         """
         Args:
-            retriever_path: path al retriever TF-IDF salvato
+            retriever_path: path to saved TF-IDF retriever
         """
         self.retriever = TFIDFRetriever()
         self.retriever.load(retriever_path)
         print(f"✅ Retriever caricato da {retriever_path}")
 
     def retrieve(self, query: str, top_k: int = 3) -> RetrievalResult:
-        """Recupera brani rilevanti."""
+        """Retrieve relevant passages."""
         results = self.retriever.retrieve(query, top_k=top_k)
 
         passages = [text for text, _ in results]
@@ -151,7 +151,7 @@ class DocumentRetrievalAgent:
         # Estrai metadata
         sources = []
         for text, score in results:
-            # Cerca il brano nel corpus per ottenere metadata
+            # Search for the passage in the corpus to get metadata
             matching_rows = self.retriever.corpus_df[self.retriever.corpus_df['text'] == text]
             if len(matching_rows) > 0:
                 row = matching_rows.iloc[0]
@@ -170,79 +170,79 @@ class DocumentRetrievalAgent:
 
 
 class ResponseGeneratorAgent:
-    """Agent 3: Generazione della risposta filosofica (stub)."""
+    """Agent 3: Philosophical response generation (stub)."""
 
     def __init__(self, registry: AgentRegistry):
         """
         Args:
-            registry: registry degli agent esperti per disciplina
+            registry: registry of expert agents per discipline
         """
         self.registry = registry
 
     def generate(self, question: str, class_label: str,
                  retrieved_passages: List[str], philosopher: str = 'filosofia') -> str:
         """
-        Genera una risposta nello stile del filosofo.
+        Generate a response in the philosopher's style.
 
-        TODO: Implementare con LLM (settimana 3)
+        TODO: Implement with LLM (week 3)
         """
         expert_agent = self.registry.get(philosopher)
         persona = expert_agent.get_persona()
 
-        # Stub: concatenazione dei brani
-        response = f"[Risposta nello stile di {persona.split('Sei ')[-1].split('.')[0]}]\n\n"
+        # Stub: concatenation of passages
+        response = f"[Response in the style of {persona.split('Sei ')[-1].split('.')[0]}]\n\n"
         response += f"Alla domanda '{question}':\n\n"
 
         if retrieved_passages:
-            response += "Passaggi rilevanti dal corpus:\n"
+            response += "Relevant passages from the corpus:\n"
             for i, passage in enumerate(retrieved_passages, 1):
                 response += f"{i}. {passage}\n"
 
-        response += "\n[Reply generata - implementazione completa in settimana 3 con LLM]"
+        response += "\n[Reply generated - full implementation in week 3 with LLM]"
 
         return response
 
 
 class QuizGeneratorAgent:
-    """Agent 4: Generazione di quiz e follow-up questions (stub)."""
+    """Agent 4: Quiz and follow-up question generation (stub)."""
 
     def generate(self, question: str, topic: str, class_label: str) -> str:
         """
-        Genera domande di verifica e follow-up.
+        Generate verification and follow-up questions.
 
-        TODO: Implementare con LLM (settimana 3)
+        TODO: Implement with LLM (week 3)
         """
         quiz_templates = {
-            'definizione': [
-                f"Quale fra questi è una caratteristica di {topic}?",
-                f"Come definiresti il concetto di {topic} con parole tue?"
+            'definition': [
+                f"Which of these is a characteristic of {topic}?",
+                f"How would you define the concept of {topic} in your own words?"
             ],
-            'confronto': [
-                f"Quali sono le similarità fra {topic}?",
-                f"Che differenza hai colto tra {topic}?"
+            'comparison': [
+                f"What are the similarities between {topic}?",
+                f"What difference did you notice between {topic}?"
             ],
-            'esempio': [
-                f"Puoi fare un altro esempio di {topic}?",
-                f"In quale contesto storico {topic}?"
+            'example': [
+                f"Can you give another example of {topic}?",
+                f"In what historical context does {topic} occur?"
             ],
-            'approfondimento': [
-                f"Quali sono gli aspetti critici di {topic}?",
-                f"Come evolve il concetto di {topic} nel tempo?"
+            'indepth': [
+                f"What are the critical aspects of {topic}?",
+                f"How does the concept of {topic} evolve over time?"
             ],
             'quiz': [
-                f"Quanto conosci bene {topic}? Prova subito!",
-                f"Sei pronto per una verifica su {topic}?"
+                f"How well do you know {topic}? Try now!",
+                f"Are you ready for a test on {topic}?"
             ]
         }
 
-        template_list = quiz_templates.get(class_label, quiz_templates['definizione'])
+        template_list = quiz_templates.get(class_label, quiz_templates['definition'])
         quiz = template_list[0] if template_list else f"Verifica su {topic}"
 
-        return quiz + "\n\n[Opzioni di risposta - implementazione comple con LLM in settimana 3]"
+        return quiz + "\n\n[Answer options - full implementation with LLM in week 3]"
 
 
 class PhiloMindPipeline:
-    """Pipeline integrata di PhiloMind."""
+    """Integrated PhiloMind pipeline."""
 
     def __init__(self,
                  classifier_model_path: str = 'models-utils/bilstm_baseline_final.pt',
@@ -252,7 +252,7 @@ class PhiloMindPipeline:
                  config_path: str = 'disciplines/config.json',
                  device: str = 'cpu'):
         """
-        Inizializza la pipeline con tutti gli agent.
+        Initialize the pipeline with all agents.
         """
         print("\n" + "="*60)
         print("Initializing PhiloMind Pipeline")
@@ -282,16 +282,16 @@ class PhiloMindPipeline:
         print("[Agent 4] Loading Quiz Generator...")
         self.quiz_agent = QuizGeneratorAgent()
 
-        print("\n✅ Pipeline pronta!")
+        print("\n✅ Pipeline ready!")
 
     def process(self, question: str, top_k_passages: int = 3) -> PipelineOutput:
         """
-        Processa una domanda attraverso tutta la pipeline.
+        Process a question through the entire pipeline.
 
         Returns:
-            PipelineOutput con tutti i risultati
+            PipelineOutput with all results
         """
-        print(f"\n📝 Domanda: {question}")
+        print(f"\n📝 Question: {question}")
 
         # Agent 1: Classificazione
         print("\n[1/4] Classificazione...")
@@ -299,35 +299,35 @@ class PhiloMindPipeline:
         print(f"  Label: {classification.predicted_label} ({classification.confidence:.2%})")
         print(f"  Top 3: {', '.join([f'{l}({c:.0%})' for l, c in classification.top_3_labels])}")
 
-        # Estrai topic dalla domanda
-        topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concetto'
+        # Extract topic from question
+        topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concept'
 
         # Agent 2: Retrieval
-        print("\n[2/4] Recupero brani filosofici...")
+        print("\n[2/4] Retrieving philosophical passages...")
         retrieval = self.retriever_agent.retrieve(question, top_k=top_k_passages)
-        print(f"  {len(retrieval.passages)} brani recuperati")
+        print(f"  {len(retrieval.passages)} passages retrieved")
         for i, (text, source) in enumerate(zip(retrieval.passages, retrieval.sources), 1):
             print(f"    [{i}] ({retrieval.scores[i-1]:.3f}) {source['philosopher']} - {source['work']}")
             print(f"        {text[:80]}...")
 
         # Agent 3: Response
-        print("\n[3/4] Generazione risposta...")
+        print("\n[3/4] Generating response...")
         response = self.response_agent.generate(
             question=question,
             class_label=classification.predicted_label,
             retrieved_passages=retrieval.passages,
             philosopher=self.registry.list_disciplines()[0]
         )
-        print(f"  Risposta generata")
+        print(f"  Response generated")
 
         # Agent 4: Quiz
-        print("\n[4/4] Generazione quiz...")
+        print("\n[4/4] Generating quiz...")
         quiz = self.quiz_agent.generate(
             question=question,
             topic=topic,
             class_label=classification.predicted_label
         )
-        print(f"  Quiz generato")
+        print(f"  Quiz generated")
 
         return PipelineOutput(
             question=question,
@@ -338,39 +338,39 @@ class PhiloMindPipeline:
         )
 
     def batch_process(self, questions: List[str]) -> List[PipelineOutput]:
-        """Processa un batch di domande."""
+        """Process a batch of questions."""
         return [self.process(q) for q in questions]
 
 
 def format_output(output: PipelineOutput) -> str:
-    """Formatta l'output per visualizzazione."""
+    """Format output for display."""
     result = f"""
 {'='*70}
-DOMANDA: {output.question}
+QUESTION: {output.question}
 {'='*70}
 
-📌 CLASSIFICAZIONE (Agent 1)
-  Classe predetta: {output.classification.predicted_label}
-  Confidenza: {output.classification.confidence:.2%}
-  Alternative: {', '.join([f'{l}({c:.0%})' for l, c in output.classification.top_3_labels])}
+📌 CLASSIFICATION (Agent 1)
+  Predicted class: {output.classification.predicted_label}
+  Confidence: {output.classification.confidence:.2%}
+  Alternatives: {', '.join([f'{l}({c:.0%})' for l, c in output.classification.top_3_labels])}
 
-📚 BRANI FILOSOFICI (Agent 2)
+📚 PHILOSOPHICAL PASSAGES (Agent 2)
 """
 
     for i, (passage, source, score) in enumerate(
         zip(output.retrieval.passages, output.retrieval.sources, output.retrieval.scores), 1
     ):
         result += f"""
-  [{i}] {source['philosopher']} - {source['work']} (rilevanza: {score:.2%})
+  [{i}] {source['philosopher']} - {source['work']}       (relevance: {score:.2%})
       {passage[:150]}...
 """
 
     result += f"""
 
-💡 RISPOSTA FILOSOFICA (Agent 3)
+💡 PHILOSOPHICAL RESPONSE (Agent 3)
 {output.response}
 
-❓ VERIFICA (Agent 4)
+❓ VERIFICATION (Agent 4)
 {output.quiz}
 
 {'='*70}
@@ -380,14 +380,14 @@ DOMANDA: {output.question}
 
 
 if __name__ == '__main__':
-    # Prova la pipeline
+    # Test the pipeline
     pipeline = PhiloMindPipeline()
 
     # Test questions
     test_questions = [
-        "Cos'è il dualismo cartesiano?",
-        "Come si differenziano Platone e Aristotele?",
-        "Cosa significa 'eterno ritorno' in Nietzsche?"
+        "What is Cartesian dualism?",
+        "How do Plato and Aristotle differ?",
+        "What does 'eternal return' mean in Nietzsche?"
     ]
 
     print("\n" + "="*70)

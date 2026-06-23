@@ -1,10 +1,10 @@
 """Output formatting for pipeline results."""
 
+import json
 from .dataclasses import PipelineOutput
 
 
 def format_output(output: PipelineOutput) -> str:
-    """Format pipeline output for display."""
     lines = []
     lines.append("=" * 70)
     lines.append(f"QUESTION: {output.question}")
@@ -18,14 +18,33 @@ def format_output(output: PipelineOutput) -> str:
     lines.append("")
     lines.append("  RETRIEVED PASSAGES")
     for i, p in enumerate(output.retrieval.passages, 1):
-        lines.append(f"  [{i}] {p.source['philosopher']} - {p.source['work']} (score: {p.score:.2%})")
-        lines.append(f"       {p.text[:150]}...")
+        source_info = []
+        if p.source.get('philosopher', 'Unknown') != 'Unknown':
+            source_info.append(p.source['philosopher'])
+        if p.source.get('work', 'Unknown') != 'Unknown':
+            source_info.append(p.source['work'])
+        if p.source.get('subject', ''):
+            source_info.append(f"[{p.source['subject']}]")
+        tag = f" ({', '.join(source_info)})" if source_info else ""
+        s_type = f" [TEACHER]" if p.source_type == 'teacher' else ""
+        lines.append(f"  [{i}]{tag} (score: {p.score:.2%}){s_type}")
+        lines.append(f"       {p.text[:200]}...")
     lines.append("")
     lines.append("  GENERATED RESPONSE")
-    lines.append(f"  {output.response[:200]}")
+    for line in output.response.split('\n'):
+        lines.append(f"  {line}")
     lines.append("")
     lines.append("  QUIZ / FOLLOW-UP")
-    lines.append(f"  {output.quiz[:200]}")
+    if isinstance(output.quiz, dict):
+        lines.append(f"  Q: {output.quiz['question']}")
+        for i, opt in enumerate(output.quiz.get('options', []), 1):
+            lines.append(f"     {i}. {opt}")
+    else:
+        lines.append(f"  {output.quiz}")
     lines.append("")
     lines.append("=" * 70)
     return '\n'.join(lines)
+
+
+def format_json_output(output: PipelineOutput) -> str:
+    return json.dumps(output.to_dict(), indent=2, ensure_ascii=False)

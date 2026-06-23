@@ -1,6 +1,6 @@
 """
-BiLSTM Baseline Classifier per la classificazione di domande filosofiche.
-Modello RNN per mostrare attenzione (tramite BiLSTM) e transfer learning.
+BiLSTM Baseline Classifier for philosophical question classification.
+RNN model to demonstrate attention (via BiLSTM) and transfer learning.
 """
 
 import torch
@@ -22,7 +22,7 @@ BASE_DIR = Path("models-utils")
 BASE_DIR.mkdir(parents=True, exist_ok=True)
 
 class QuestionDataset(Dataset):
-    """Dataset per domande filosofiche."""
+    """Dataset for philosophical questions."""
 
     def __init__(self, df, vocab, label2idx, max_length=50):
         self.questions = df['question'].values
@@ -38,13 +38,13 @@ class QuestionDataset(Dataset):
         question = self.questions[idx]
         label = self.labels[idx]
 
-        # Tokenizzazione basic (split)
+        # Basic tokenization (split)
         tokens = question.lower().split()[:self.max_length]
 
         # Convert to indices
         token_indices = []
         for token in tokens:
-            # Rimuovi punteggiatura
+            # Remove punctuation
             clean_token = token.strip(',.!?;:\'"')
             if clean_token in self.vocab:
                 token_indices.append(self.vocab[clean_token])
@@ -65,7 +65,7 @@ class QuestionDataset(Dataset):
 
 
 class BiLSTMClassifier(nn.Module):
-    """BiLSTM Classifier con embedding layer."""
+    """BiLSTM Classifier with embedding layer."""
 
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, n_layers=2, dropout=0.3):
         super().__init__()
@@ -80,7 +80,7 @@ class BiLSTMClassifier(nn.Module):
             batch_first=True
         )
 
-        # Output layer dopo concatenazione forward+backward
+        # Output layer after forward+backward concatenation
         self.fc = nn.Sequential(
             nn.Linear(hidden_dim * 2, 128),
             nn.ReLU(),
@@ -109,21 +109,21 @@ class BiLSTMClassifier(nn.Module):
         # Unpack
         output, output_lengths = nn.utils.rnn.pad_packed_sequence(packed_output, batch_first=True)
 
-        # Prendi solo l'ultimo hidden state da entrambe le direzioni
+        # Take only the last hidden state from both directions
         # hidden: (n_layers*2, batch_size, hidden_dim)
 
-        # Concatena forward e backward dell'ultimo layer
-        hidden_fwd = hidden[-2, :, :]  # ultimo layer, forward
-        hidden_bwd = hidden[-1, :, :]  # ultimo layer, backward
+        # Concatenate forward and backward of the last layer
+        hidden_fwd = hidden[-2, :, :]  # last layer, forward
+        hidden_bwd = hidden[-1, :, :]  # last layer, backward
         hidden_concat = torch.cat((hidden_fwd, hidden_bwd), dim=-1)  # (batch_size, 2*hidden_dim)
 
-        # Classifica
+        # Classify
         output = self.fc(hidden_concat)
         return output
 
 
 class QuestionClassifier:
-    """Wrapper per training e inference."""
+    """Wrapper for training and inference."""
 
     def __init__(self, vocab_size, embedding_dim=100, hidden_dim=64, n_classes=5,
                  n_layers=2, dropout=0.3, device='cpu'):
@@ -147,7 +147,7 @@ class QuestionClassifier:
         self.best_val_loss = float('inf')
 
     def train_epoch(self, train_loader):
-        """Allena per un'epoca."""
+        """Train for one epoch."""
         self.model.train()
         total_loss = 0
 
@@ -173,7 +173,7 @@ class QuestionClassifier:
         return avg_loss
 
     def evaluate(self, val_loader):
-        """Valuta su validation set."""
+        """Evaluate on validation set."""
         self.model.eval()
         total_loss = 0
         all_preds = []
@@ -209,7 +209,7 @@ class QuestionClassifier:
         }
 
     def train(self, train_loader, val_loader, epochs=30, patience=5):
-        """Training completo con early stopping."""
+        """Full training with early stopping."""
         patience_counter = 0
 
         print(f"\n[START] TRAINING BiLSTM (device={self.device}, epochs={epochs})")
@@ -228,7 +228,7 @@ class QuestionClassifier:
             if val_metrics['loss'] < self.best_val_loss:
                 self.best_val_loss = val_metrics['loss']
                 patience_counter = 0
-                print(f"  [OK] Miglioramento! Salvo il modello...")
+                print(f"  [OK] Improvement! Saving the model...")
                 self.save_model(BASE_DIR / f"bilstm_baseline_epoch{epoch + 1}.pt")
             else:
                 patience_counter += 1
@@ -242,7 +242,7 @@ class QuestionClassifier:
         }
 
     def predict(self, tokens, lengths):
-        """Predizione su batch."""
+        """Predict on batch."""
         self.model.eval()
         with torch.no_grad():
             tokens = tokens.to(self.device)
@@ -254,19 +254,19 @@ class QuestionClassifier:
         return preds.cpu().numpy(), probs.cpu().numpy()
 
     def save_model(self, path):
-        """Salva il modello."""
+        """Save the model."""
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         torch.save(self.model.state_dict(), path)
         print(f"  Model saved to {path}")
 
     def load_model(self, path):
-        """Carica il modello."""
+        """Load the model."""
         self.model.load_state_dict(torch.load(path, map_location=self.device))
         print(f"  Model loaded from {path}")
 
 
 def build_vocab(train_df, min_freq=2):
-    """Costruisce il vocabolario dal training set."""
+    """Build vocabulary from training set."""
     counter = Counter()
 
     for text in train_df['question']:
@@ -276,7 +276,7 @@ def build_vocab(train_df, min_freq=2):
             if clean_token:
                 counter[clean_token] += 1
 
-    # Filtra per frequenza minima
+    # Filter by minimum frequency
     vocab = {'<PAD>': 0, '<UNK>': 1}
     idx = 2
 
@@ -294,17 +294,17 @@ if __name__ == '__main__':
     train_path = '../data/labels/questions_train.csv'
     test_path = '../data/labels/questions_test.csv'
 
-    # carica dati
-    print("[INFO] Caricamento dati...")
+    # load data
+    print("[INFO] Loading data...")
     train_df = pd.read_csv(train_path)
     test_df = pd.read_csv(test_path)
 
     # Label mapping
     label2idx = {
-        'definizione': 0,
-        'confronto': 1,
-        'esempio': 2,
-        'approfondimento': 3,
+        'definition': 0,
+        'comparison': 1,
+        'example': 2,
+        'indepth': 3,
         'quiz': 4
     }
     idx2label = {v: k for k, v in label2idx.items()}
@@ -380,6 +380,6 @@ if __name__ == '__main__':
     with open(save_dir / "label2idx.json", "w") as f:
         json.dump(label2idx, f, indent=2)
 
-    print(f"\n[OK] Modello e vocabolario salvati in {save_dir}/")
+    print(f"\n[OK] Model and vocabulary saved in {save_dir}/")
 
 
