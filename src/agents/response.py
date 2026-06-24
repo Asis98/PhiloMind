@@ -43,6 +43,24 @@ class ResponseGenerator:
         lines.append(f"On the question: \"{question}\"")
         lines.append("")
 
+        if class_label == 'definition':
+            lines.append("Let us examine what this concept truly means. "
+                         "Through careful reasoning, we can discern its essential nature.")
+        elif class_label == 'comparison':
+            lines.append("A comparison reveals important distinctions. "
+                         "Let us consider each perspective in turn.")
+        elif class_label == 'example':
+            lines.append("Examples illuminate abstract ideas. "
+                         "Consider the following illustration.")
+        elif class_label == 'deepening':
+            lines.append("This question invites deeper analysis. "
+                         "Let us explore its philosophical implications.")
+        elif class_label == 'quiz':
+            lines.append("A thoughtful question! Let me share some insights "
+                         "that might help you reflect on this topic.")
+        else:
+            lines.append("An interesting philosophical inquiry.")
+
         body = self._build_body(question, class_label, passages_with_sources)
         lines.append(body)
         lines.append("")
