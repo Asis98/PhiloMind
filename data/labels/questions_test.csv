@@ -1,88 +1,1001 @@
 question,label
-I want to be tested on phenomenology?,quiz
-Ask a verification question on Descartes.,quiz
-Ask a question about Spinoza.,quiz
-Test me on social contract.,quiz
-I want a quiz on ancient philosophy?,quiz
-Make a quiz on modern political philosophy.,quiz
-Ask a verification question on philosophy.,quiz
-Quiz me on Hegel.,quiz
-Ask something about Spinoza.,quiz
-Create a quiz on Marx.,quiz
-Test me on Nietzsche.,quiz
-Test me on positivism.,quiz
-Ask a verification question on pre-Socratic philosophy?,quiz
-Test me on Wittgenstein.,quiz
-Ask something about Hegel.,quiz
-I want to be tested on Descartes.,quiz
-I want to be tested on Leibniz.,quiz
-How does the view of language in Wittgenstein (early and later)?,comparison
-How does the view of freedom in Sartre and Hegel?,comparison
-How do Marx and Hegel?,comparison
-How do Plato from Aristotle?,comparison
-What is the difference between the time in Augustine and in Heidegger?,comparison
-How does the logical positivism from empiricism classical?,comparison
-What are the similarities and differences between Plato and Aristotle?,comparison
-What is the difference between Plato and Aristotle on concept of soul?,comparison
-How do Kant from Hume?,comparison
-What is the difference between the determinism of Spinoza and that of Leibniz?,comparison
-What is the difference between Pyrrhonian skepticism and Cartesian skepticism?,comparison
-How do Rousseau and Hobbes?,comparison
-How does the morality in Spinoza and in Kant?,comparison
-What is the difference between Kant and Hume?,comparison
-What are the similarities and differences between Hegel and Sartre?,comparison
-How do Kant and Spinoza?,comparison
-Give an example of induction in method of Bacon?,example
-Give an example of freedom negative and positive in politics?,example
-How does Plato?,example
-Illustrate philosophy with a example.,example
-How does Locke in real life?,example
-Give an example of syllogistic reasoning?,example
-How does Plato in real life?,example
-How does the eternal return in a choice of life?,example
-How does the Stoicism in choices daily?,example
-Give a practical case of Aristotle.,example
-How does the ethics utilitarian in a choice medical difficult?,example
-How does the unhappy consciousness Hegelian in a character literary?,example
-Give an example of philosophy?,example
-Give an example of critical thinking Kantian in science?,example
-Give a practical case of Plato.,example
-Give an example of virtue Aristotelian in daily life?,example
-How does the 'tabula rasa' of Locke in development of a child?,example
-Critically examine Nietzsche.,indepth
-Develop the concept of Marx.,indepth
-What are the main aspects of Plato?,indepth
-How does the conception of God in medieval philosophy?,indepth
-Critically examine philosophy.,indepth
-Analyze Nietzsche.,indepth
-What are the main aspects of Hume?,indepth
-Explore the Critique of Pure Reason of Kant.,indepth
-How does the analytic philosophy of 20th century?,indepth
-Explore the theme of empathy in ethics of Schopenhauer.,indepth
-How does the thought ethical of Kant in three Critiques?,indepth
-Explore the theme of justice in Plato's Republic.,indepth
-Explore the role of myth in thought of Plato.,indepth
-How does the concept of power in Foucault?,indepth
-Analyze Kant.,indepth
-How does the dialectic of the master and of the servant in Hegel?,indepth
-Explore the theme of philosophy.,indepth
-Explore the theme of Plato.,indepth
-Explore the theme of Hume.,indepth
-What is the concept of 'alienation' in Marx?,definition
-What does 'amor fati' in Nietzsche?,definition
-What is Nietzsche?,definition
-Define philosophy.,definition
-Define Nietzsche.,definition
-Explain the concept of philosophy.,definition
-What is philosophy?,definition
-Explain the concept of Locke.,definition
-What is the syllogism according to Aristotle?,definition
-How would you define Nietzsche?,definition
-What is meant by 'vegetative soul' in Aristotle?,definition
-What is Marx?,definition
-Define Plato.,definition
-What is the definition of Kant?,definition
-What does the term 'eidos' in Plato?,definition
-How would you define Plato?,definition
-What is meant by 'Sartre'?,definition
-What is Sartre?,definition
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
+What is justice according to Plato?,definition
+How does Plato's view of justice differ from that of Aristotle?,comparison
+Can you give a real-world example of justice?,example
+Provide an in-depth analysis of justice in the philosophy of Plato.,deepening
+Ask me a quiz question about justice and Plato.,quiz
+What is free will according to Aristotle?,definition
+How does Aristotle's view of free will differ from that of Kant?,comparison
+Can you give a real-world example of free will?,example
+Provide an in-depth analysis of free will in the philosophy of Aristotle.,deepening
+Ask me a quiz question about free will and Aristotle.,quiz
+What is epistemology according to Kant?,definition
+How does Kant's view of epistemology differ from that of Hume?,comparison
+Can you give a real-world example of epistemology?,example
+Provide an in-depth analysis of epistemology in the philosophy of Kant.,deepening
+Ask me a quiz question about epistemology and Kant.,quiz
+What is metaphysics according to Hume?,definition
+How does Hume's view of metaphysics differ from that of Descartes?,comparison
+Can you give a real-world example of metaphysics?,example
+Provide an in-depth analysis of metaphysics in the philosophy of Hume.,deepening
+Ask me a quiz question about metaphysics and Hume.,quiz
+What is virtue according to Descartes?,definition
+How does Descartes's view of virtue differ from that of Spinoza?,comparison
+Can you give a real-world example of virtue?,example
+Provide an in-depth analysis of virtue in the philosophy of Descartes.,deepening
+Ask me a quiz question about virtue and Descartes.,quiz
+What is utilitarianism according to Spinoza?,definition
+How does Spinoza's view of utilitarianism differ from that of Leibniz?,comparison
+Can you give a real-world example of utilitarianism?,example
+Provide an in-depth analysis of utilitarianism in the philosophy of Spinoza.,deepening
+Ask me a quiz question about utilitarianism and Spinoza.,quiz
+What is categorical imperative according to Leibniz?,definition
+How does Leibniz's view of categorical imperative differ from that of Nietzsche?,comparison
+Can you give a real-world example of categorical imperative?,example
+Provide an in-depth analysis of categorical imperative in the philosophy of Leibniz.,deepening
+Ask me a quiz question about categorical imperative and Leibniz.,quiz
+What is social contract according to Nietzsche?,definition
+How does Nietzsche's view of social contract differ from that of Hegel?,comparison
+Can you give a real-world example of social contract?,example
+Provide an in-depth analysis of social contract in the philosophy of Nietzsche.,deepening
+Ask me a quiz question about social contract and Nietzsche.,quiz
+What is alienation according to Hegel?,definition
+How does Hegel's view of alienation differ from that of Marx?,comparison
+Can you give a real-world example of alienation?,example
+Provide an in-depth analysis of alienation in the philosophy of Hegel.,deepening
+Ask me a quiz question about alienation and Hegel.,quiz
+What is dialectics according to Marx?,definition
+How does Marx's view of dialectics differ from that of Sartre?,comparison
+Can you give a real-world example of dialectics?,example
+Provide an in-depth analysis of dialectics in the philosophy of Marx.,deepening
+Ask me a quiz question about dialectics and Marx.,quiz
+What is phenomenology according to Sartre?,definition
+How does Sartre's view of phenomenology differ from that of Heidegger?,comparison
+Can you give a real-world example of phenomenology?,example
+Provide an in-depth analysis of phenomenology in the philosophy of Sartre.,deepening
+Ask me a quiz question about phenomenology and Sartre.,quiz
+What is existentialism according to Heidegger?,definition
+How does Heidegger's view of existentialism differ from that of Locke?,comparison
+Can you give a real-world example of existentialism?,example
+Provide an in-depth analysis of existentialism in the philosophy of Heidegger.,deepening
+Ask me a quiz question about existentialism and Heidegger.,quiz
+What is rationalism according to Locke?,definition
+How does Locke's view of rationalism differ from that of Rousseau?,comparison
+Can you give a real-world example of rationalism?,example
+Provide an in-depth analysis of rationalism in the philosophy of Locke.,deepening
+Ask me a quiz question about rationalism and Locke.,quiz
+What is empiricism according to Rousseau?,definition
+How does Rousseau's view of empiricism differ from that of Hobbes?,comparison
+Can you give a real-world example of empiricism?,example
+Provide an in-depth analysis of empiricism in the philosophy of Rousseau.,deepening
+Ask me a quiz question about empiricism and Rousseau.,quiz
+What is skepticism according to Hobbes?,definition
+How does Hobbes's view of skepticism differ from that of Wittgenstein?,comparison
+Can you give a real-world example of skepticism?,example
+Provide an in-depth analysis of skepticism in the philosophy of Hobbes.,deepening
+Ask me a quiz question about skepticism and Hobbes.,quiz
+What is logic according to Wittgenstein?,definition
+How does Wittgenstein's view of logic differ from that of Schopenhauer?,comparison
+Can you give a real-world example of logic?,example
+Provide an in-depth analysis of logic in the philosophy of Wittgenstein.,deepening
+Ask me a quiz question about logic and Wittgenstein.,quiz
+What is consciousness according to Schopenhauer?,definition
+How does Schopenhauer's view of consciousness differ from that of Foucault?,comparison
+Can you give a real-world example of consciousness?,example
+Provide an in-depth analysis of consciousness in the philosophy of Schopenhauer.,deepening
+Ask me a quiz question about consciousness and Schopenhauer.,quiz
+What is truth according to Foucault?,definition
+How does Foucault's view of truth differ from that of Rawls?,comparison
+Can you give a real-world example of truth?,example
+Provide an in-depth analysis of truth in the philosophy of Foucault.,deepening
+Ask me a quiz question about truth and Foucault.,quiz
+What is knowledge according to Rawls?,definition
+How does Rawls's view of knowledge differ from that of Mill?,comparison
+Can you give a real-world example of knowledge?,example
+Provide an in-depth analysis of knowledge in the philosophy of Rawls.,deepening
+Ask me a quiz question about knowledge and Rawls.,quiz
+What is ethics according to Mill?,definition
+How does Mill's view of ethics differ from that of Plato?,comparison
+Can you give a real-world example of ethics?,example
+Provide an in-depth analysis of ethics in the philosophy of Mill.,deepening
+Ask me a quiz question about ethics and Mill.,quiz
