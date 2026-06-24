@@ -129,7 +129,7 @@ class ResponseGenerator:
                 f"{phras} from distinct perspectives. A comparison reveals how philosophical "
                 f"systems differ in their starting assumptions and conclusions."
             )
-        elif class_label == 'indepth':
+        elif class_label == 'deepening':
             phras = ', '.join(best_phrases)
             return (
                 f"A deeper examination guided by {phil_match} reveals that "

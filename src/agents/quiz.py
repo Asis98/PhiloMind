@@ -34,7 +34,7 @@ class QuizGenerator:
                 "A biological process."
             ]
         },
-        'indepth': {
+        'deepening': {
             'question': "What is a significant implication of {topic}?",
             'correct': "It challenges our understanding of {topic_desc}.",
             'distractors': [

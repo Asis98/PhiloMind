@@ -18,7 +18,7 @@ from .base import BaseClassifier
 
 LABEL_MAP = {
     'definition': 0, 'comparison': 1, 'example': 2,
-    'indepth': 3, 'quiz': 4
+    'deepening': 3, 'quiz': 4
 }
 IDX_TO_LABEL = {v: k for k, v in LABEL_MAP.items()}
 NUM_LABELS = 5

@@ -304,7 +304,7 @@ if __name__ == '__main__':
         'definition': 0,
         'comparison': 1,
         'example': 2,
-        'indepth': 3,
+        'indedeepth': 3,
         'quiz': 4
     }
     idx2label = {v: k for k, v in label2idx.items()}

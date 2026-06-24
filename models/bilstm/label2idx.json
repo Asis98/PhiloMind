@@ -1,7 +1,7 @@
 {
-  "definition": 0,
-  "comparison": 1,
+  "comparison": 0,
+  "definition": 1,
   "example": 2,
-  "indepth": 3,
+  "deepening": 3,
   "quiz": 4
 }

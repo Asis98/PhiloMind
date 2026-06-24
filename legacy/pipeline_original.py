@@ -225,7 +225,7 @@ class QuizGeneratorAgent:
                 f"Can you give another example of {topic}?",
                 f"In what historical context does {topic} occur?"
             ],
-            'indepth': [
+            'deepening': [
                 f"What are the critical aspects of {topic}?",
                 f"How does the concept of {topic} evolve over time?"
             ],

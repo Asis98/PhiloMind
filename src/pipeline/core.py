@@ -52,19 +52,33 @@ class PhiloMindPipeline:
             clf.load(model_path, vocab_path, label_path)
         return clf
 
+    def _extract_topic(self, question: str) -> str:
+        question_words = {'what', 'how', 'why', 'which', 'explain', 'compare', 'does', 'who', 'whom', 'whose', 'where', 'when'}
+        stop_words = {'the', 'a', 'an', 'is', 'are', 'was', 'were', 'by', 'of', 'to', 'in', 'for', 'on', 'at', 'with', 'from'}
+        clean = lambda w: w.strip('?.,!;\'\"()[]{}').rstrip("'s")
+        words = question.split()
+        for w in words[1:]:
+            cw = clean(w)
+            if cw and cw[0].isupper() and cw.lower() not in question_words and cw.lower() not in stop_words:
+                return cw
+        for w in words:
+            cw = clean(w)
+            if cw and cw.lower() not in question_words and cw.lower() not in stop_words:
+                return cw
+        return clean(words[-1]) if words else 'concept'
+
     def _load_retriever(self, retriever_path):
-        if not retriever_path:
-            return None
+        path = retriever_path or self._resolve('models/retrieval/tfidf.pkl')
         retriever = TFIDFRetriever()
-        if Path(retriever_path).exists():
-            retriever.load(retriever_path)
+        if Path(path).exists():
+            retriever.load(path)
         return retriever
 
     def process(self, question: str, top_k: int = 3) -> PipelineOutput:
         pred_label, confidence, top_3 = self.classifier.predict(question)
         classification = ClassificationResult(question, pred_label, confidence, top_3)
 
-        topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concept'
+        topic = self._extract_topic(question)
 
         results = self.general_retriever.retrieve(question, top_k=top_k)
         passages = []
@@ -89,7 +103,7 @@ class PhiloMindPipeline:
         pred_label, confidence, top_3 = self.classifier.predict(question)
         classification = ClassificationResult(question, pred_label, confidence, top_3)
 
-        topic = question.split()[:3][-1] if len(question.split()) > 2 else 'concept'
+        topic = self._extract_topic(question)
 
         combined = self.general_retriever.retrieve_with_boost(
             question, top_k=top_k, teacher_retriever=self.teacher_retriever, boost_factor=2.0
