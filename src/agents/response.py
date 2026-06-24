@@ -32,7 +32,7 @@ class ResponseGenerator:
         elif class_label == 'example':
             lines.append("Examples illuminate abstract ideas. "
                          "Consider the following illustration.")
-        elif class_label == 'indepth':
+        elif class_label == 'deepening':
             lines.append("This question invites deeper analysis. "
                          "Let us explore its philosophical implications.")
         elif class_label == 'quiz':
