@@ -26,7 +26,12 @@ def format_output(output: PipelineOutput) -> str:
         if p.source.get('subject', ''):
             source_info.append(f"[{p.source['subject']}]")
         tag = f" ({', '.join(source_info)})" if source_info else ""
-        s_type = f" [TEACHER]" if p.source_type == 'teacher' else ""
+        if p.source_type == 'teacher':
+            s_type = " [TEACHER]"
+        elif p.source_type == 'hybrid':
+            s_type = " [HYBRID]"
+        else:
+            s_type = ""
         lines.append(f"  [{i}]{tag} (score: {p.score:.2%}){s_type}")
         lines.append(f"       {p.text[:200]}...")
     lines.append("")

@@ -1,31 +1,85 @@
-"""Response generator with context-aware answers using passage content."""
+"""Response generator using actual passage content with source citations."""
 
 import re
 from typing import List, Dict
-from collections import Counter
 from .registry import AgentRegistry
 
 
-PHILOSOPHER_STYLES = {
-    'filosofia': {
-        'greeting': 'philosopher and seeker of wisdom',
-        'method': 'distinguished by a commitment to rational inquiry and dialectical exchange'
-    }
-}
+PHILOSOPHER_NAMES = [
+    'Plato', 'Aristotle', 'Socrates', 'Descartes', 'Kant', 'Nietzsche',
+    'Hegel', 'Heidegger', 'Husserl', 'Foucault', 'Deleuze', 'Leibniz',
+    'Fichte', 'Russell', 'Wittgenstein', 'Spinoza', 'Hume', 'Locke',
+    'Rousseau', 'Marx', 'Kierkegaard', 'Sartre', 'Arendt', 'Rawls',
+    'Habermas', 'Adorno', 'Derrida', 'Bacon', 'Hobbes', 'Berkeley',
+]
 
 
-def get_philosopher_name(text: str) -> str:
-    philosophers = ['Plato', 'Aristotle', 'Socrates', 'Descartes', 'Kant', 'Nietzsche',
-                    'Hegel', 'Heidegger', 'Husserl', 'Foucault', 'Deleuze', 'Leibniz',
-                    'Fichte', 'Russell', 'Wittgenstein']
-    for p in philosophers:
+def _find_philosopher(text: str) -> str:
+    for p in PHILOSOPHER_NAMES:
         if p.lower() in text.lower():
             return p
     return ''
 
 
+def _extract_sentences(text: str) -> List[str]:
+    return [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if len(s.strip()) > 20]
+
+
+def _summarize_passage(text: str, max_words: int = 45) -> str:
+    """Extract the most contentful, self-contained sentence from a passage."""
+    sentences = _extract_sentences(text)
+    if not sentences:
+        words = text.split()
+        return ' '.join(words[:max_words]) + '...' if len(words) > max_words else text
+
+    def score(s):
+        wc = len(s.split())
+        caps = sum(1 for w in re.findall(r'\b[A-Z][a-z]+\b', s))
+        # penalise sentence fragments, very long or short sentences
+        if wc < 6 or wc > 60:
+            return 0
+        return caps * 3 + wc * 0.5 - abs(wc - 20)
+
+    candidates = sorted(sentences, key=score, reverse=True)
+    best = candidates[0] if candidates else sentences[0]
+
+    # clean up garbage characters
+    best = best.replace('  ', ' ').replace(' ,', ',').replace(' .', '.')
+    best = best.replace('.e.', 'i.e.').replace('.e ,', 'i.e.,')
+
+    words = best.split()
+    if len(words) > max_words:
+        # truncate at last complete sentence boundary within limit
+        truncated = ' '.join(words[:max_words])
+        # try to end at a sentence boundary
+        last_period = truncated.rfind('.')
+        if last_period > len(truncated) * 0.6:
+            truncated = truncated[:last_period + 1]
+        elif not truncated.endswith('.'):
+            truncated += '...'
+        return truncated
+    return best
+
+
+def _passage_to_citation(item: Dict) -> str:
+    """Format a passage as a readable citation with key insight."""
+    src = item['source']
+    phil = src.get('philosopher', '')
+    work = src.get('work', '')
+    insight = _summarize_passage(item['text'])
+
+    parts = []
+    if phil:
+        parts.append(phil)
+    if work:
+        parts.append(f'in "{work}"')
+    citation = f'({" — ".join(parts)})' if parts else ''
+
+    return f'- {insight} {citation}'.strip()
+
+
 class ResponseGenerator:
-    """Generates philosophical responses with source citations, using actual passage content."""
+    """Generates responses by synthesising retrieved passage content."""
 
     def __init__(self, registry: AgentRegistry):
         self.registry = registry
@@ -43,133 +97,96 @@ class ResponseGenerator:
         lines.append(f"On the question: \"{question}\"")
         lines.append("")
 
-        if class_label == 'definition':
-            lines.append("Let us examine what this concept truly means. "
-                         "Through careful reasoning, we can discern its essential nature.")
-        elif class_label == 'comparison':
-            lines.append("A comparison reveals important distinctions. "
-                         "Let us consider each perspective in turn.")
-        elif class_label == 'example':
-            lines.append("Examples illuminate abstract ideas. "
-                         "Consider the following illustration.")
-        elif class_label == 'deepening':
-            lines.append("This question invites deeper analysis. "
-                         "Let us explore its philosophical implications.")
-        elif class_label == 'quiz':
-            lines.append("A thoughtful question! Let me share some insights "
-                         "that might help you reflect on this topic.")
-        else:
-            lines.append("An interesting philosophical inquiry.")
-
+        # -- Body: synthesize passages --
         body = self._build_body(question, class_label, passages_with_sources)
         lines.append(body)
         lines.append("")
 
+        # -- Citations --
         if passages_with_sources:
-            lines.append("Relevant passages from the philosophical corpus:")
-            for i, item in enumerate(passages_with_sources, 1):
-                source_info = []
-                if item['source'].get('philosopher', 'Unknown') != 'Unknown':
-                    source_info.append(item['source']['philosopher'])
-                if item['source'].get('work', 'Unknown') != 'Unknown':
-                    source_info.append(f"in \"{item['source']['work']}\"")
-                tag = f" ({', '.join(source_info)})" if source_info else ""
-                passage_text = item['text'][:250]
-                lines.append(f"  [{i}]{tag}")
-                lines.append(f"     \"{passage_text}...\"")
+            lines.append("Key passages from the philosophical corpus:")
+            for item in passages_with_sources:
+                lines.append(f"  {_passage_to_citation(item)}")
             lines.append("")
 
-        lines.append("In conclusion, the philosophical tradition offers multiple lenses "
-                     "through which to view this question. The passages above provide "
-                     "a foundation for continued reflection and discussion.")
+        lines.append("These excerpts from the philosophical tradition provide "
+                     "the basis for continued reflection on this question.")
         lines.append("")
         lines.append("[Response generated by PhiloMind pipeline. "
-                     "Full LLM integration would provide a richer, more nuanced answer.]")
+                     "Full LLM integration would provide a richer answer.]")
 
         return '\n'.join(lines)
 
     def _build_body(self, question: str, class_label: str,
                     passages: List[Dict]) -> str:
         if not passages:
-            return "I reflect on your question, though I find no direct passages in the corpus to draw upon."
+            return ("I reflect on your question, though I find no direct passages "
+                    "in the corpus to draw upon. The philosophical tradition "
+                    "offers many perspectives, but none appear in the indexed texts.")
 
-        passage_texts = [p['text'] for p in passages]
-        source_philosophers = list(dict.fromkeys(
-            p['source'].get('philosopher', '') for p in passages
-            if p['source'].get('philosopher', 'Unknown') not in ('Unknown', '')
-        ))
+        # Collect philosophers and key sentences
+        source_philosophers = []
+        for p in passages:
+            phil = p['source'].get('philosopher', '')
+            if phil and phil not in source_philosophers and phil != 'Unknown':
+                source_philosophers.append(phil)
 
-        q_lower = question.lower()
-        q_philosopher = get_philosopher_name(q_lower)
-
+        q_philosopher = _find_philosopher(question)
         if q_philosopher and q_philosopher in source_philosophers:
-            phil_match = q_philosopher
+            main_phil = q_philosopher
         elif source_philosophers:
-            phil_match = source_philosophers[0]
+            main_phil = source_philosophers[0]
         else:
-            phil_match = 'various thinkers'
+            main_phil = 'the philosophical tradition'
 
-        best_passage = passages[0]['text']
-        best_phrases = self._extract_meaningful_phrases(best_passage, 2)
-
-        if class_label == 'definition':
-            if phras := ', '.join(best_phrases):
-                return (
-                    f"To understand this concept, we can turn to the work of {phil_match}. "
-                    f"The philosophical tradition engages with it in terms of {phras}. "
-                    f"As {phil_match} demonstrates, this question invites us to examine "
-                    f"the foundational assumptions that underlie our understanding."
-                )
-        elif class_label == 'comparison':
-            others = ', '.join(source_philosophers[:3]) if len(source_philosophers) > 1 else f'other thinkers'
-            phras = ', '.join(best_phrases)
-            return (
-                f"The contrast between different philosophical positions is illuminating. "
-                f"{' and '.join(source_philosophers[:2])} each approach the question of "
-                f"{phras} from distinct perspectives. A comparison reveals how philosophical "
-                f"systems differ in their starting assumptions and conclusions."
-            )
-        elif class_label == 'deepening':
-            phras = ', '.join(best_phrases)
-            return (
-                f"A deeper examination guided by {phil_match} reveals that "
-                f"this question touches on fundamental issues of {phras}. "
-                f"The philosophical investigation goes beyond surface-level answers "
-                f"to explore the underlying structures of thought."
-            )
-        elif class_label == 'example':
-            phras = ', '.join(best_phrases)
-            return (
-                f"Concrete examples from {phil_match} help illustrate this point. "
-                f"The discussion of {phras} shows how abstract philosophical ideas "
-                f"manifest in specific cases and arguments."
-            )
-
-        phras = ', '.join(best_phrases) if best_phrases else 'philosophical concepts'
-        return (
-            f"This inquiry connects to broader themes explored by {phil_match}, "
-            f"particularly regarding {phras}. Philosophical reflection on this topic "
-            f"invites us to examine our assumptions."
+        best = max(passages, key=lambda p: len(p['text']))
+        key_insight = _summarize_passage(
+            best['text']
+            .replace('...', '.')
+            .replace('  ', ' '),
+            max_words=40
         )
 
-    def _extract_meaningful_phrases(self, text: str, n: int = 2) -> List[str]:
-        sentences = re.split(r'[.!?]+', text)
-        meaningful = []
-        for sent in sentences:
-            sent = sent.strip()
-            if len(sent) < 20:
-                continue
-            words = sent.split()
-            for i, w in enumerate(words):
-                if w[0].isupper() and len(w) > 6 and i < len(words) - 1:
-                    phrase = ' '.join(words[i:i+3])
-                    if phrase not in meaningful:
-                        meaningful.append(phrase)
-        if not meaningful and sentences:
-            first = sentences[0].strip()
-            words = first.split()
-            if len(words) > 5:
-                meaningful.append(' '.join(words[:5]))
-            elif first:
-                meaningful.append(first[:60])
-        return meaningful[:n]
+        # Build body by type
+        lines = []
+        if class_label == 'definition':
+            lines.append(
+                f"To understand this concept, we can turn to {main_phil}. "
+                f"A relevant passage explains: \"{key_insight}\" "
+                f"This reflects how the philosophical tradition has engaged "
+                f"with this concept — not as a fixed definition, but as "
+                f"a living question that each thinker addresses differently."
+            )
+        elif class_label == 'comparison':
+            others = source_philosophers[:3]
+            lines.append(
+                f"The contrast between {others[0] if others else 'different thinkers'} "
+                f"and other philosophical positions is instructive. "
+                f"As one passage notes: \"{key_insight}\" "
+                f"This illustrates the different assumptions and conclusions "
+                f"that characterise philosophical disagreements."
+            )
+        elif class_label == 'deepening':
+            lines.append(
+                f"A deeper examination guided by {main_phil} reveals that "
+                f"this question touches on fundamental issues. "
+                f"Consider the following: \"{key_insight}\" "
+                f"Going beyond surface-level answers, we see how this "
+                f"inquiry connects to broader philosophical structures."
+            )
+        elif class_label == 'example':
+            lines.append(
+                f"Concrete examples from {main_phil} help illuminate this. "
+                f"The text states: \"{key_insight}\" "
+                f"This shows how abstract philosophical ideas manifest "
+                f"in specific arguments and illustrations."
+            )
+        else:
+            lines.append(
+                f"This inquiry connects to broader themes explored by {main_phil}. "
+                f"As expressed in the corpus: \"{key_insight}\" "
+                f"Philosophical reflection on this topic invites us "
+                f"to examine our assumptions."
+            )
+
+        return '\n\n'.join(lines)

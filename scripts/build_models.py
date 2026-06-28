@@ -16,13 +16,13 @@ from src.retrieval.corpus import CorpusPreparer
 
 def rebuild_retriever():
     print("=" * 60)
-    print("  Building TF-IDF Corpus Index")
+    print("  Building TF-IDF + Dense Embedding Index")
     print("=" * 60)
-    
+
     base = Path(__file__).resolve().parent.parent
     raw_path = base / 'data' / 'raw' / 'philosophy_data.csv'
     models_dir = base / 'models'
-    
+
     if not raw_path.exists():
         print(f"Raw corpus not found at {raw_path}")
         print("Creating sample corpus instead...")
@@ -32,7 +32,7 @@ def rebuild_retriever():
             "Aristotle was a Greek philosopher and polymath during the Classical period in Ancient Greece. He was the founder of the Lyceum and the Peripatetic school of philosophy. Aristotle's ethics, particularly his concept of virtue ethics, emphasizes the role of habit and character. He argued that eudaimonia (happiness) is the highest human good and that virtue is the mean between two extremes. Unlike Plato, Aristotle believed that form and matter are inseparable, and that knowledge comes from sensory experience.",
             "René Descartes was a French philosopher, mathematician, and scientist. He is often called the father of modern philosophy. His most famous statement is 'Cogito, ergo sum' (I think, therefore I am). Descartes developed a method of radical doubt, questioning everything that could possibly be doubted. He argued for a dualism between mind and body, claiming that they are distinct substances. His work laid the foundation for rationalism in continental philosophy.",
             "Immanuel Kant was a German philosopher who is a central figure in modern philosophy. In his Critique of Pure Reason, he argued that space and time are a priori forms of sensibility. Kant proposed the categorical imperative as the supreme principle of morality: 'Act only according to that maxim whereby you can at the same time will that it should become a universal law.' He distinguished between phenomena (things as they appear) and noumena (things in themselves).",
-            "Friedrich Nietzsche was a German philosopher known for his critiques of traditional European morality and religion. He introduced the concept of the Übermensch (Overman) as a goal for humanity to strive toward. His idea of the 'will to power' suggests that the fundamental drive of humans is to exercise and expand their power. The 'eternal return' is a thought experiment that asks whether one would be willing to live one's life over and over again for eternity. Nietzsche's work has profoundly influenced existentialism and postmodern thought.",
+            "Friedrich Nietzsche was a German philosopher known for his critiques of traditional European morality and religion. He introduced the concept of the Ubermensch (Overman) as a goal for humanity to strive toward. His idea of the 'will to power' suggests that the fundamental drive of humans is to exercise and expand their power. The 'eternal return' is a thought experiment that asks whether one would be willing to live one's life over and over again for eternity. Nietzsche's work has profoundly influenced existentialism and postmodern thought.",
         ]
         corpus_chunks = pd.DataFrame({
             'text': example_texts,
@@ -46,16 +46,32 @@ def rebuild_retriever():
         df = pd.read_csv(raw_path, low_memory=False)
         print(f"Total documents: {len(df)}")
         corpus_chunks = CorpusPreparer.build_corpus_index(str(raw_path), models_dir / 'retrieval', sample_size=15000)
-    
+
+    # ---- TF-IDF ----
     retriever = TFIDFRetriever(corpus_df=corpus_chunks, max_features=10000)
     retriever.fit(corpus_chunks['text'].values)
-    
+
     save_path = models_dir / 'retrieval' / 'tfidf.pkl'
     retriever.save(str(save_path))
-    print(f"Retriever saved to {save_path}")
-    print(f"Vocabulary size: {len(retriever.vectorizer.get_feature_names_out())}")
-    print(f"Corpus chunks: {len(corpus_chunks)}")
-    
+    print(f"\nTF-IDF retriever saved to {save_path}")
+    print(f"  Vocabulary size: {len(retriever.vectorizer.get_feature_names_out())}")
+    print(f"  Corpus chunks: {len(corpus_chunks)}")
+
+    # ---- Dense embeddings (SentenceTransformer) ----
+    try:
+        from src.retrieval.embeddings import DenseRetriever
+        print("\nBuilding dense embeddings with all-MiniLM-L6-v2...")
+        dense = DenseRetriever()
+        dense.corpus_df = corpus_chunks
+        texts = corpus_chunks['text'].astype(str).tolist()  # avoid StringArray issue
+        dense.fit(texts)
+        emb_path = models_dir / 'retrieval' / 'dense_embeddings.npy'
+        dense.save(str(emb_path))
+        print(f"  Dense embeddings saved to {emb_path} ({dense.embeddings.shape})")
+    except Exception as e:
+        print(f"  [!] Dense embeddings skipped: {e}")
+
+    # ---- Test retrieval ----
     test_queries = [
         "What is Plato's theory of Forms?",
         "Explain Cartesian dualism",
@@ -63,9 +79,9 @@ def rebuild_retriever():
         "Compare Aristotle and Plato",
         "What does Nietzsche mean by the will to power?"
     ]
-    
+
     print("\n" + "=" * 60)
-    print("  Test Retrieval")
+    print("  Test Retrieval (TF-IDF)")
     print("=" * 60)
     for q in test_queries:
         results = retriever.retrieve(q, top_k=2)
@@ -74,7 +90,31 @@ def rebuild_retriever():
             source = retriever.get_source(idx)
             print(f"  [{source['philosopher']} - {source['work']}] (score: {score:.2%})")
             print(f"  {text[:120]}...")
-    
+
+    # ---- Test hybrid if available ----
+    try:
+        from src.retrieval.hybrid import HybridRetriever
+        from src.retrieval.embeddings import DenseRetriever
+        emb_path = models_dir / 'retrieval' / 'dense_embeddings.npy'
+        if emb_path.exists():
+            dense = DenseRetriever()
+            dense.load(str(emb_path))
+            dense.corpus_df = corpus_chunks
+
+            hybrid = HybridRetriever(tfidf_retriever=retriever, dense_retriever=dense, alpha=0.3)
+            print("\n" + "=" * 60)
+            print("  Test Retrieval (Hybrid — TF-IDF + Dense)")
+            print("=" * 60)
+            for q in test_queries:
+                results = hybrid.retrieve(q, top_k=2)
+                print(f"\nQuery: {q}")
+                for idx, text, score, st in results:
+                    source = hybrid.get_source(idx)
+                    print(f"  [{source['philosopher']} - {source['work']}] (hybrid score: {score:.2%})")
+                    print(f"  {text[:120]}...")
+    except Exception as e:
+        print(f"\n  [!] Hybrid test skipped: {e}")
+
     print("\n[OK] Retriever built successfully!")
     return retriever
 
@@ -85,34 +125,42 @@ def train_classifier():
     print("=" * 60)
     
     base = Path(__file__).resolve().parent.parent
+    label_path = base / 'data' / 'labels' / 'questions_labeled.csv'
     train_path = base / 'data' / 'labels' / 'questions_train.csv'
     test_path = base / 'data' / 'labels' / 'questions_test.csv'
     models_dir = base / 'models' / 'bilstm'
     models_dir.mkdir(parents=True, exist_ok=True)
     
-    if not train_path.exists():
-        all_dfs = []
-        label_path = base / 'data' / 'labels' / 'questions_labeled.csv'
-        if label_path.exists():
-            df = pd.read_csv(label_path)
-            print(f"Using labeled data ({len(df)} samples)")
-            all_dfs.append(df)
-        aug_path = base / 'data' / 'labels' / 'questions_augmented.csv'
-        if aug_path.exists():
-            aug_df = pd.read_csv(aug_path)
-            print(f"Using augmented data ({len(aug_df)} samples)")
-            all_dfs.append(aug_df)
-        if all_dfs:
-            combined = pd.concat(all_dfs, ignore_index=True).drop_duplicates(subset=['question'])
-            from sklearn.model_selection import train_test_split
-            train, test = train_test_split(combined, test_size=0.2, random_state=42, stratify=combined['label'])
-            train.to_csv(train_path, index=False)
-            test.to_csv(test_path, index=False)
-            print(f"Created train ({len(train)}) / test ({len(test)}) split")
+    if not train_path.exists() or not test_path.exists():
+        labeled = pd.read_csv(label_path)
+        n_before = len(labeled)
+        labeled = labeled.drop_duplicates(subset=['question']).reset_index(drop=True)
+        n_after = len(labeled)
+        print(f"Labeled data: {n_before} rows -> {n_after} unique questions (dropped {n_before - n_after} duplicates)")
+        print(labeled['label'].value_counts())
+
+        from sklearn.model_selection import train_test_split
+        train, test = train_test_split(
+            labeled, test_size=0.2, random_state=42,
+            stratify=labeled['label']
+        )
+        print(f"\nSplit: train ({len(train)}) / test ({len(test)})")
+
+        from src.data.augmentation import augment_dataframe
+        augmented = augment_dataframe(train)
+        print(f"Augmented: {len(augmented)} new questions (from training set only)")
+
+        train = pd.concat([train, augmented]).drop_duplicates(subset=['question'])
+        train = train.reset_index(drop=True)
+        print(f"Final train: {len(train)} ({len(labeled)} original + augmentation)")
+
+        train.to_csv(train_path, index=False)
+        test.to_csv(test_path, index=False)
+        print(f"Saved train ({len(train)}) / test ({len(test)}) — no leakage")
     
     train_df = pd.read_csv(train_path)
     test_df = pd.read_csv(test_path)
-    print(f"Train: {len(train_df)}, Test: {len(test_df)}")
+    print(f"\nTrain: {len(train_df)}, Test: {len(test_df)}")
     print(f"Labels: {train_df['label'].unique()}")
     print(train_df['label'].value_counts())
     
@@ -143,7 +191,18 @@ def train_classifier():
     trainer = BiLSTMTrainer(model=classifier.model, device=device)
     history = trainer.train(train_loader, test_loader, epochs=30, patience=5,
                             save_path=str(models_dir / 'final.pt'))
-    
+
+    with open(models_dir / 'training_history.json', 'w') as f:
+        json.dump({
+            'train_losses': [round(v, 6) for v in history['train_losses']],
+            'val_losses': [round(v, 6) for v in history['val_losses']],
+            'epochs': len(history['train_losses']),
+            'stopped_epoch': len(history['train_losses']),
+        }, f, indent=2)
+    print(f"Training history saved ({len(history['train_losses'])} epochs)")
+    print(f"  Final train loss: {history['train_losses'][-1]:.4f}")
+    print(f"  Final val loss:   {history['val_losses'][-1]:.4f}")
+
     classifier.model.load_state_dict(torch.load(models_dir / 'final.pt', map_location=device))
     
     from sklearn.metrics import classification_report

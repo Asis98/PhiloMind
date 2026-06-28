@@ -29,6 +29,13 @@ TEMPLATES = {
         "Can you provide a concrete example of {concept}?",
         "Where can we see {concept} in practice?",
     ],
+    'deepening': [
+        "What are the implications of {concept}?",
+        "Analyze {concept} in depth.",
+        "What are the strengths and weaknesses of {concept}?",
+        "How has {concept} evolved over time?",
+        "What are the main critiques of {concept}?",
+    ],
     'deep_dive': [
         "What are the implications of {concept}?",
         "Analyze {concept} in depth.",
@@ -99,6 +106,33 @@ def augment_dataset(input_path, output_path, train_path, test_path, test_size=0.
     print(f"Train: {len(train_df)} | Test: {len(test_df)}")
     for label in sorted(aug_df['label'].unique()):
         print(f"  {label}: train={len(train_df[train_df['label']==label])}, test={len(test_df[test_df['label']==label])}")
+
+
+def augment_dataframe(df: pd.DataFrame, n_concepts: int = 3,
+                      n_philosophers: int = 10) -> pd.DataFrame:
+    """Generate augmented questions from a DataFrame without including originals.
+    
+    Use this to augment only the training set after the train/test split,
+    eliminating data leakage.
+    """
+    augmented = []
+    for _, row in df.iterrows():
+        label = row['label']
+        if label == 'comparison':
+            parts = row['question'].replace('?', '').split(' e ')
+            if len(parts) >= 2:
+                for template in TEMPLATES[label][:3]:
+                    augmented.append({'question': template.format(a=parts[0], b=parts[1]), 'label': label})
+        else:
+            for concept in CONCEPTS[:n_concepts]:
+                for template in TEMPLATES[label][:2]:
+                    augmented.append({'question': template.format(concept=concept), 'label': label})
+    for philosopher in PHILOSOPHERS[:n_philosophers]:
+        for template in TEMPLATES['quiz'][:3]:
+            augmented.append({'question': template.format(concept=philosopher), 'label': 'quiz'})
+    aug_df = pd.DataFrame(augmented).drop_duplicates(subset=['question'])
+    aug_df = aug_df.sample(frac=1, random_state=42).reset_index(drop=True)
+    return aug_df
 
 
 if __name__ == '__main__':
